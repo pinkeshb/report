@@ -1,0 +1,84 @@
+\chapter{Literature Survey}
+%\ section{\label{sec:Literature Survey}Literature Survey}
+\section{\label{sub:Filter-bank-design time-frequency}Time-Frequency Uncertainty}
+In this section we discuss the time-frequency uncertainty, the fact which tells that a signal cannot be localized in time and frequency simultaneously beyond a certain extent. To understand this principle more closely, take an example of a signal, the frequency of which increases with time, such signals are known as chirps. Consider a linear chirp whose frequency increases linearly with time. If we analyze the signal on time-frequency plane, a smooth linear curve cannot be obtained, the time-frequency plot of the signal would be consisting of small rectangles, which have a certain width in time and frequency, within that box the time-frequency behavior is uncertain, this explains the notion of uncertainty, the question that can be asked is, up to what extent we can reduce the area of the rectangle? In other words, up to what extent the uncertainty can be reduced. This section discusses about the extent of the uncertainty in continuous time as well as in discrete time. We also discuss the connection between the discrete and the continuous time uncertainty in this section.
+\subsection{\label{sub:Uncertainty-in-continuous}Uncertainty in Continuous-Time Domain}
+Gabor's uncertainty principle \cite{key-19} essentially states:
+\begin{quote}
+{}``A signal cannot be localized simultaneously in time and frequency
+arbitrarily.''
+\end{quote}
+The above statement is essentially the signal processing version of uncertainty which was given by Gabor. The signal processing version of uncertainty principle \cite{key-19} is directly associated with the Heisenberg's uncertainty principle in quantum mechanics. 
+Let $x(t) \in L^2(\mathbb{R})$ be a even symmetric function with unity norm, i.e, $\int_{\mathbb{R}}|x(t)|^{2}dt=1$.
+
+Then according to Gabor's uncertainty principle \cite{key-19} :
+\begin{equation}
+\int_{\mathbb{R}}t^{2}|x(t)|^{2}dt\frac{1}{2\pi}\int_{\mathbb{R}}\Omega^{2}|X(\Omega)^{2}|d\Omega\ge\frac{1}{4}
+\label{uncertaintyprinciple}
+\end{equation}
+
+where $X(\Omega)$ is the Fourier transform of $x(t)$. The above inequality can be written in time domail using Parseval's theorem as,
+\begin{equation}
+\int_{\mathbb{R}}t^{2}|x(t)|^{2}dt\int_{\mathbb{R}}|x'(t)|^{2}dt\ge\frac{1}{4}\label{eq:HUP}
+\end{equation}
+From (\ref{eq:HUP}), we can say that the signal spread in time and the
+energy in its derivative cannot both be reduced arbitrarily.
+
+Inequality (\ref{eq:HUP}) implies that the time-frequency product $\triangle_{x}=\sigma_{t}^{2}\sigma_{\Omega}^{2}$
+of a signal $x(t)$ is bounded below by $0.25$, i.e.,
+
+\begin{equation}
+\triangle_{x}=\sigma_{t}^{2}\sigma_{\Omega}^{2}\ge\frac{1}{4}\label{eq:tfp}\end{equation}
+
+
+where 
+\begin{equation*}
+\label{eq: sigma_t_square}
+\sigma_{t}^{2}=\int_{\mathbb{R}}t^{2}\left|x\left(t\right)\right|^{2}dt
+\end{equation*}
+and 
+\begin{equation*}
+\label{eq: sigma_w_square}
+\sigma_{\Omega}^{2}=\frac{1}{2\pi}\int_{\mathbb{R}}\Omega^{2}|X(\Omega)^{2}|d\omega
+\end{equation*}
+ In (\ref{eq:tfp}) equality is achieved only for the Gaussian signal.
+
+\subsection{\label{sub:Uncertainty-in-discrete}Uncertainty in Discrete-Time Domain}
+In this subsection, we briefly describe the uncertainty in discrete time domain. 
+Let $h(n)$ be a real valued, even symmetric discrete-time sequence in $l^{2}\left(\mathbb{Z}\right)$. 
+The Discrete-Time Fourier Transform (DTFT) of $h(n)$ is given by,
+\begin{equation}
+H\left(\omega\right)=\sum_{n=-\infty}^{\infty}h\left(n\right)e^{-j\omega n}\label{eq:DTFT}\end{equation} 
+and the energy of the sequence $h(n)$ is given by,
+$$E = \sum_{n=-\infty}^{\infty}\left|h\left(n\right)\right|^{2} = \frac{1}{2\pi}\int_{-\pi}^{\pi}|X(w)|^2d\omega$$,
+The integral in above equation is equal to the summation, the same can be deduced by Parseval's theorem.
+The time variance of the sequence is defined as \cite{key-11, key-36}; 
+\begin{equation}
+\sigma_{n}^{2}=\frac{1}{E}\sum_{n=-\infty}^{\infty}n^{2}\left|h\left(n\right)\right|^{2}\label{eq:time_var}
+\end{equation}
+The frequency variance for a low-pass sequence $h\left(n\right)$ is defined
+as \cite{key-11,key-36}
+\begin{equation}
+\sigma_{\omega}^{2}=\frac{1}{2\pi{E}}\int_{-\pi}^{\pi}\omega^{2}\left|H\left(\omega\right)\right|^{2}d\omega\label{eq:frequency_var}
+\end{equation}
+
+The time-frequency product 
+\begin{equation}
+\triangle_{h}=\sigma_{n}^{2}\sigma_{\omega}^{2}\geq\frac{\left(1-\left|H\left(\pi\right)\right|\right)^{2}}{4}\label{eq: tfp_discret}
+\end{equation} 
+is also lower bounded \cite{key-11}. $\sigma_{n}^{2}\sigma_{\omega}^{2} = 0$ for the sequences with $H(\pi) = 1$, here the question arises, "Are the sequences with $H(\pi)=1$ have no uncertainty?" Of-course the answer to this question is no, that's the reason the uncertainty given by \cite{key-11} is best suited for low-pass sequences. 
+
+There are several other notions of time-frequency localization and the corresponding discrete time uncertainty that have been taken into account \cite{key-11,key-38,key-25,key-33,key-36,key-37,key-34}. E. Breitenberger \cite{key-38} argued that the discrete frequency variance stated in \cite{key-11,key-36} changes if we shift the DTFT of the sequence, whereas the variance of a function must be invariant to the translation. E. Breitenberger \cite{key-38} presented a circular moment based definition of frequency variance which is invariant of shifting.
+%\subsection{Connection Between Continuous and The Discrete Time Uncertainty}
+
+Discrete time signals are obtained after sampling a continuous time signal. It is well known that a bandlimited continuous time signal can be reconstructed from its samples if the sampling is done over the Nyquist rate. Venkatesh et al. \cite{Venky} reported the time-frequency localization of the bandlimited signals. It was verified in the work by Venkatesh et al. \cite{Venky} that for bandlimited signals the lower bound on the time-frequency product can be very closely achieved. Any discrete sequence with at least one zero at $z = -1$ can be considered as a sampled version of a continuous time signal. Hence we can say that time-frequency localization of the sequences with zeros at $z=-1$ directly resembles with the time-frequency localization of the corresponding continuous time signal. The same fact encourages us to take the time-frequency measures of the low-pass sequences (with zeros at $z=-1$) as the optimality criterion.
+\section{Earlier Work on Time Frequency Localizarion Based Filters and Filter Banks}
+L. Shen and Z. Shen \cite{shen} verified the effectiveness of the time-frequency localization based filter banks on compression of the images. They used zero tree algorithm, in which decomposition of the image was done by time localized filter bank and the frequency localization based filter banks. Decomposition of image on larger scales was done by frequency localized filter banks, whereas at low-levels the decomposition was done by time-localized filter banks. It was shown that the scheme keeps more texture details of the original images. 
+
+M. Sharma et al. \cite{CSSP} devised a framework to design time-frequency localized biorthogonal filter banks. Convex combination of time and frequency variance (CCTFV) was taken as the objective function in the work. The objective function was formulated in convex quadratic form, whereas the constraints were formulated in linear form. Eigenfilter based approach was used to solve the convex problem. In one of the design problem proposed, we used the same objective function to design the orthogonal filter bank.
+
+D. Tay \cite{key-2,key-28} designed a class of linear phase biorthogonal half-band pair filter banks. Balanced-uncertainty metric proposed by D. Monro and B. G. Sherlock \cite{key-4} was taken as an optimality criterion. This metric is the weighted summation of time variance and frequency variance of the filter to be designed. 
+
+R. Parhizkar et al. \cite{key-40} devised a methodology to generate the sequences with minimum time-frequency spread. Semidefinite programming was used to design the sequence. The time variance of the sequence was minimized for a given frequency variance. The Design Problem 2 and 3 of the present work are inspired by the approach used in \cite{key-40}.
+
+J. Morris et al. \cite{morris_time, morris_bw, morris_DB} designed discrete time wavelets taking the time-frequency localization as an optimal criterion. In \cite{morris_time} minimum time duration wavelets were designed using a technique called adaptive stimulated annealing. In \cite{morris_bw} a framework was proposed to design optimum bandwidth wavelets using the same technique. Whereas in \cite{morris_DB} the product of the time duration and the bandwidth was taken as an optimality criterion to design time-frequency localized wavelets. However vanishing moments constraints were not taken into the account.

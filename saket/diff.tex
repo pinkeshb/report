@@ -1,0 +1,55 @@
+
+\subsection{\label{sub:EigenfilterApproach}The Eigenfilter Approach}
+The eigenfilter approach \cite{key-43,key-14} is an efficient and popular method to design
+digital filters. The technique gives an optimal solution as filter coefficients, which minimizes a quadratic cost function. The approach employs the computation of the filter as the eigenvector of an appropriate Hermitian positive-definite matrix associated with the cost function. Slepian \cite{key-43} introduced the notion which formed a precursor
+to eigenfilter design. He designed a real window with minimum stop-band energy called a prolate spheroidal wave sequence. In designing
+the prolate spheroidal wave sequence, the objective function $\phi$,
+which is the energy of the sequence in the frequency range $\sigma\leq\omega\leq\pi$
+for $0<\sigma<\pi$ is expressed in quadratic form and the optimization
+problem is formalized as:
+\begin{equation*}
+\begin{aligned}
+& \underset{\mathbf{a}} {\text{minimize}}
+& & \phi=\mathbf{a}^{T}\mathbf{Pa} \\
+& \text{subject to}
+& & \mathbf{a}^{T}\mathbf{a}=1 \\
+\end{aligned}
+\end{equation*}
+where $\mathbf{P}$ is a real, symmetric, Toeplitz and positive-definite
+matrix and $\mathbf{a}$ is a real valued eigenvector. The optimal sequence,
+which minimizes the cost function, is the eigenvector $\mathbf{a}$ of
+the matrix $\mathbf{P}$ corresponding to its smallest eigenvalue.
+The constraint $\mathbf{a}^{T}\mathbf{a}=1$, is imposed to avoid
+trivial solutions.
+
+Vaidyanathan and Nguyen \cite{key-14} presented  the {}``eigenfilter''
+method to design an optimal FIR filter directly. In the eigenfilter approach, the filter is obtained
+as the eigenvector of a real, symmetric, positive-definite matrix,
+in a similar way to the prolate spheroidal window sequence design problem.
+In the eigenfilter approach the objective function to be minimized
+is the error between desired frequency response and the frequency
+response of the filter to be designed. Eigenfilter-based
+methods have also been used to design filter banks by a few authors \cite{key-15,key-26,key-27,key-29}.
+\subsubsection{\label{sub:RayleighPrinciple}The Rayleigh's Principle \cite{key-13}}
+For a function $\phi(\mathbf{x}) = \mathbf{x}^{T}\mathbf{Qx}$,
+where $\mathbf{Q}$ is a real, symmetric, Toeplitz and positive-definite
+$n$ by $n$ matrix and $\mathbf{x}$ is a real valued vector.\\
+
+Then
+\begin{equation*}
+\begin{aligned}
+& \underset{\mathbf{x}} {\text{min}}& \phi(\mathbf{x})= \underset{\mathbf{{x}^{T}x=1}} {\text{min}} & \phi(\mathbf{x})
+\end{aligned}
+\end{equation*}
+
+According to Rayleigh's Principle
+\begin{equation*}
+\begin{aligned}
+\underset{\mathbf{{x}^{T}\mathbf{x}=1}} {\text{min}} & \phi(\mathbf{x} ) = \lambda_1
+\end{aligned}
+\end{equation*}
+
+where $$ \lambda_1\leq\lambda_2\leq\lambda_3........\leq\lambda_n$$ are the eigen values of matrix  $\mathbf{Q}$
+
+The vector $\mathbf{x}$ which minimizes $\phi$ is the eigenvector corresponding to a minimum eigen value.
+% 

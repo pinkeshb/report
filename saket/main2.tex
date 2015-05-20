@@ -1,0 +1,228 @@
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  Topic: MTP 2
+%  Field: FB
+%  Code By: Mr. Saket Porwal
+%  Web: skt.porwal@gmail.com
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\def\inputGnumericTable{}
+\documentclass[12pt,a4paper,onesided]{report}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Packages
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% Essential Packages
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \usepackage{parcolumns}
+	\usepackage{setspace}
+	\usepackage{amsmath, amssymb, amsthm}
+		\DeclareMathOperator{\trace}{Tr}
+		\DeclareMathOperator{\toep}{Toep}
+    \usepackage{array}
+	\usepackage{graphicx}
+	\usepackage[left=1.5in, right=1in, top=1.5in, bottom=1in, includefoot, headheight=10pt]{geometry}
+	\usepackage[square, comma, numbers, sort&compress]{natbib}
+	\usepackage[T1]{fontenc}
+	\usepackage[english]{babel}
+    \usepackage{multirow}
+    \usepackage{multicol}
+    \usepackage{url}
+    \usepackage[titletoc,toc,page]{appendix}
+    
+    \renewcommand{\appendixtocname}{Appendices}
+
+    \usepackage{nomencl}
+    %\usepackage{subfigure}
+    \usepackage{subfig} % Um mehrere Bilder nebeneinander
+
+    \setcounter{lofdepth}{2} % we want subfigures in the list of figures
+
+    %\usepackage{float}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{showexpl}
+\usepackage{etex}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr,caption}
+\usepackage{xspace}
+%\usepackage{subfig}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{makeidx}
+\usepackage[table]{xcolor}
+\usepackage{multido}
+\usepackage{xkeyval}
+%\usepackage[pdf]{pstricks}
+%\usepackage{pst-sigsys,pst-plot}
+\usepackage{multicol}
+\usepackage{epstopdf}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% Packages to import MATLAB code
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    %\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% Packages to import table from GNUMERIC
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    \usepackage[latin1]{inputenc}                                 %%
+    \usepackage{longtable}                                        %%
+    \usepackage{calc}                                             %%
+    \usepackage{hhline}                                           %%
+    \usepackage{ifthen}
+    \usepackage{tikz,bclogo}
+    \usetikzlibrary{shapes,snakes}
+    \usepackage{amsmath,amssymb}
+
+
+%   For times font (Elsever)
+%    \usepackage{times}
+%    \usepackage[varg]{txfonts}
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	%  Packages for getting nicely formatted URLs in the bibliography
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    %% Define a new 'leo' style for the package that will use a smaller font.
+    \makeatletter
+    \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+    \def\url@leostyle{%
+    \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+    \makeatother
+    %% Now actually use the newly defined style.
+    \urlstyle{leo}
+
+
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	%  Packages for Table of contents of each chapter
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	\usepackage[nottoc, notlof, notlot]{tocbibind}
+	\usepackage{minitoc}
+	\setcounter{minitocdepth}{1}
+	\mtcindent=15pt
+	\dominitoc
+	% Use \minitoc where to put a table of contents
+
+
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	%  Fancy Header
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	\usepackage{fancyhdr}                    % Fancy Header and Footer
+
+	% Fancy Header Style Options
+	
+	\pagestyle{fancy}                       % Sets fancy header and footer
+	\fancyfoot{}                            % Delete current footer settings
+	\fancyhead[LE,RO]{\bfseries\thepage}    % Page number (boldface) in left on even
+	% pages and right on odd pages
+	\fancyhead[RE]{\bfseries\nouppercase{\leftmark}}      % Chapter in the right on even pages
+	\fancyhead[LO]{\bfseries\nouppercase{\rightmark}}     % Section in the left on odd pages
+	
+	\fancypagestyle{plain}{
+	\fancyhead{}
+	\fancyfoot{}
+	\renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+	}
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	%  Packages for  PDF hyper-linking (set colors to black for printing)
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	\usepackage[colorlinks]{hyperref}
+    \hypersetup
+    {
+        pdfauthor={Saket Porwal},
+        pdfsubject={M.Tech Dissertation}, 
+        pdftitle={DSP},
+        pdfkeywords={skt.porwal@gmail.com (+91 9167768460)}
+    }
+	\usepackage[figure,table]{hypcap}
+	\hypersetup
+		{
+		bookmarksnumbered,
+		pdfstartview={Filter Banks},
+		citecolor={black},
+		linkcolor={black},
+		urlcolor={black},
+		pdfpagemode={UseOutlines}
+		}
+	\makeatletter
+	\newcommand\org@hypertarget{}
+	\let\org@hypertarget\hypertarget
+	\renewcommand\hypertarget[2]{%
+	\Hy@raisedlink{\org@hypertarget{#1}{}}#2%
+	}
+	\makeatother
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  Main
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\makeindex
+
+
+
+\newcommand{\question}[1]{\colchunk{\begin{description}\item[$\Rightarrow$]{#1}%
+    \end{description}}}
+\newcommand{\answer}[1]{\colchunk{\begin{description}\item[$\Rightarrow$]{#1}%
+    \end{description}}\colplacechunks}
+
+\begin{document}
+
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	%  Title Page
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 	\thispagestyle{empty}    % No page number
+    \include{title}
+
+    %\include{tm}
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% Abstract
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \singlespace
+    \thispagestyle{empty}  
+    \include{Dedication_parents}  % No page number
+    \include{Declaration}
+    \include{Ack}    
+    \include{abstract}
+  
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% Table of Contents, List of Figures, List of Tables
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 	\pagenumbering{roman}
+	\tableofcontents
+    %\addcontentsline{toc}{chapter}{List of Figures}
+    
+	\listoffigures
+	\listoftables
+
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% Chapters
+	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\sqrt{}
+
+	\pagenumbering{arabic}
+    \setcounter{chapter}{0}
+    \setcounter{page}{0}
+    \singlespace
+    %\onehalfspace
+    \DeclareGraphicsExtensions{.pdf,.png,.jpg,.bmp}
+\setstretch{1.5}
+    \include{Introduction}
+    \include{Literature}
+    \include{TheOrthogonalDesign}
+    \include{Results}
+    \include{conclusion}
+
+    \bibliographystyle{plain}
+    \bibliography{main}
+      
+    \thispagestyle{empty}
+    \include{Appendix}
+
+\end{document}

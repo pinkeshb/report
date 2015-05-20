@@ -1,0 +1,177 @@
+\chapter{\label{Intro}Introduction}
+Wavelet transform is one of the most powerful tool that is used for multi-scale or multi-resolution analysis. Wavelet transform can be realized using filter banks by which a signal can be decomposed at different resolutions. The advantage of the wavelet in signal analysis is the simultaneous localization in the time as well as in frequency domain to a great extent. In the present work time-frequency localization is taken as an optimality criterion to design the orthogonal filter banks. We aim to design the time-frequency localization optimized filter banks employing a semidefinite programming based approach. This chapter gives the introduction to FIR filter banks along with the optimality criterion used to design the filter banks. We also discuss semidefinite programming (SDP), which is an optimization technique that has been employed to design the filter banks. 
+
+\section{\label{sub:Perfect-Reconstruction-Filter-1}Perfect Reconstruction Filter Banks}
+A typical two-channel filter bank is shown in Fig. \ref{fig:two-channel-1D-filter-1-1}. $H_{0}(z)$ and $H_{1}(z)$ are analysis low-pass and high-pass filters, respectively, and $F_{0}(z)$ and $F_{1}(z)$ are synthesis low-pass and high-pass filters\cite{saketmanish}. 
+
+\begin{figure}[tbh]
+\centering{}\includegraphics[width=4in]{twochannelfilterbank.pdf}
+\caption{\label{fig:two-channel-1D-filter-1-1}Two-channel 1D filter bank}
+\end{figure}
+
+\subsection{Orthogonal Filter Banks}
+In the present work, we proposed three design problem to design time-frequency localization optimized orthogonal filter banks. In the very simple words, the design of orthogonal filter means to generate an even length sequence which is orthonormal to its even shifts, this orthonormality ensures the perfect reconstruction, i.e. the signal decomposed by an analysis filter bank can be reconstructed using the synthesis filter bank. The length of the filters of the orthogonal filter bank is even because the odd length orthogonal perfect reconstruction real valued filter bank is fundamentally not possible. Also a real valued perfect reconstruction symmetric orthogonal filter bank is not possible except for the 2 length length case \cite{strang}. 
+
+To design orthogonal filter bank, the analysis low-pass filter is first designed. The other filters are then obtained employing conjugate quadrature symmetry. The impulse response of the analysis high-pass filter can be obtained as,
+\begin{eqnarray}
+\label{eq: h1 and h0}
+h_1(n) = (-1)^nh_0(M-n)
+\end{eqnarray} 
+Where, $M$ is an odd natural number such that,
+$$ h_0(n) = 0\,\,\,\, \forall n\,\, \in \{(n<0)\cup(n>M)\}$$
+Hence the length of the filter is
+$$ L = M + 1$$
+The other members, $f_0(n)$ and $f_1(n)$ can be obtaines as,
+\begin{equation}
+\label{eq: f0}
+f_0(n)=h_0(M-n)
+\end{equation}
+\begin{equation}
+\label{eq: f1}
+f_1(n)=h_1(M-n)
+\end{equation}
+Equations \ref{eq: h1 and h0} and \ref{eq: f0} and \ref{eq: f1} ensure the alias cancellation. In this manner all the four members of the filter banks are obtained.
+
+\subsection{Biorthogonal Filter Banks}
+ The symmetric orthogonal filter banks are not possible, the same creates the need to design a biorthogonal filter bank, in which symmetry can be achieved and hence the linear phase \cite{strang}. 
+Let $h_0(n)$ and $f_0(n)$ are the impulse response of the low-pass filter of the analysis and the synthesis filter bank respectively such that,
+\begin{eqnarray}
+\label{eq: bior ana. filt.}
+h_0(n) = 0\,\,\,\, \forall\,\, |n| > P\\
+f_0(n) = 0 \,\,\, \forall\,\, |n| > Q 
+\end{eqnarray}  
+The other members can be obtained using the following equations,
+\begin{equation}
+\label{eq: h1 bior}
+h_1(n) = (-1)^nf_0(n)
+\end{equation}
+\begin{equation}
+\label{eq: f1 bior}
+f_1(n) = (-1)^nh_0(n)
+\end{equation}
+The above two equations ensure the alias cancellation condition. Defining the product filter, $P(z)=H_{0}(z)F_{0}(z)$, the PR condition can be expressed in $z-$domain as :
+\begin{equation}
+P(z)+P(-z)=2\label{eq:halfband cond}
+\end{equation}
+It can be shown that the inverse $Z$ transform of $P(Z)$, $p(n)$ is equal to zero at all even indices except $n=0$.
+Such sequences are known as half-band sequences \cite{key-1}.
+
+\section{Optimality Criterion}
+The fundamental problem of time-frequency localization is that a signal cannot be localized in time and frequency simultaneously beyond a certain extent. There is a lower bound on the time-frequency measures. In the present work, we design the filter banks with time-frequency localization based optimality criterion. For the Design Problem 1, the objective function taken is the convex combination of the time variance, $\sigma_n^2$ and the frequency varaince, $\sigma_\omega^2$ of the filter impulse response. In the whole report, we call this quantity \textbf{CCTFV} of the filter impulse response.  M. Sharma et al. \cite{CSSP} took CCTFV as an objective function to design the biorthogonal filter bank. The following equations define the time and frequency variance \cite{key-11, key-36}.
+\begin{eqnarray*}
+\sigma_n^2 &=& \sum_{n}(n-n_0)^2 |h(n)|^2 \\
+\sigma_\omega^2 &=& \int_{\mathbb{R}} \omega^2 |H(\omega)|^2 d\omega
+\end{eqnarray*}
+Where $H(\omega)$ is the DTFT of $h(n)$ and $n_0$ is the time center given as
+$$n_0 = \sum_{n}n|h(n)|^2$$
+
+CCTFV \cite{CSSP} of the filter with impulse response is given by,
+\begin{eqnarray*}
+\phi = \alpha \sigma_n^2 + (1 - \alpha) \sigma_\omega^2
+\end{eqnarray*}
+where $\alpha \in [0,1]$
+
+The Design Problem 1 uses CCTFV of the impulse response of the analysis low-pass filter as an objective function. Whereas in the Design Problem 2, we first fix the frequency variance to a constant value and then try to minimize the time variance of the analysis low-pass filter, the vice-versa of this is done in the Design Problem 3, i.e. we fixed time variance to a certain value and then the frequency variance is minimized. In all the three designs we try to optimize the time-frequency localization uncertainty of the analysis filter.
+
+The advantage of using CCTFV as an optimality criterion is that, the frequency and time variances are simultaneously reduced, unlike the time-frequency product (TFP) where we just know that the time-frequency product is reduced \cite{CSSP}. CCTFV provide a degree of freedom which is the value of $\alpha \in [0,1]$, for example, if one wants to concentrate only on time variance, the value of $\alpha$ can be set to unity. The CCTFV can not be minimized beyond a certain value. CCTFV has a lower bound \cite{CSSP}. It can simply be derived from the fact that the arithmetic mean (A.M.) of two real numbers is greater than the geometric mean (G.M.), mathematically,
+\begin{eqnarray}
+\begin{aligned}
+\frac{\alpha  \sigma_n^2 + (1-\alpha) \sigma_\omega^2}{2} \geq \sqrt{\alpha  \sigma_n^2 (1-\alpha)\sigma_\omega^2}\\
+\alpha  \sigma_n^2 + (1-\alpha) \sigma_\omega^2 \geq \sqrt{\alpha(1-\alpha)}\,\,2\sigma_n \sigma_\omega\\
+\end{aligned}
+\end{eqnarray}
+Hence,
+\begin{eqnarray}
+\Phi \geq \sqrt{\alpha(1-\alpha)}\,\,2 \sigma_n \sigma_\omega
+\end{eqnarray}
+The product of time-frequency variances for a low-pass sequence is bounded by $\frac{1}{4}$ \cite{key-11,key-36} mathematically,
+\begin{eqnarray}
+\begin{aligned}
+\sigma_n^2 \sigma_\omega^2 \geq \frac{1}{4}\\
+\text{i.e.} \,\,\,\, \sigma_n \sigma_\omega \geq \frac{1}{2}
+\end{aligned}
+\end{eqnarray}
+Hence, for the low-pass discrete sequences,
+\begin{eqnarray}
+\label{eq: CCTFV Bound LP}
+\Phi \geq \sqrt{\alpha(1-\alpha)}
+\end{eqnarray}
+The above inequality holds true for any kind of low-pass discrete sequence. In general,
+\begin{eqnarray}
+\begin{aligned}
+\sigma_n^2 \sigma_\omega^2 &\geq \frac{1}{4} (1 - H(e^{j\pi}))^2 \\
+%H(e^{j\pi}) &= 1 \,\,\,\,\,\,\, \text{for all-pass and high-pass sequences} \\
+%\text{Hence,}\,\,\,\,
+%\sigma_n^2 \sigma_\omega^2 &\geq 0 \,\,\,\,\,\,\, \text{for all-pass and high-pass sequences} 
+\end{aligned}
+\end{eqnarray}
+Hence, for the sequences with $H(e^{j\pi}) = 1$, the following inequality holds,
+\begin{eqnarray}
+\label{eq: CCTFV Bound HP}
+\Phi \geq 0
+\end{eqnarray}
+\section{\label{sec: sdpa}Semidefinite Programming}
+In the present work, we use semidefinite programming (SDP) \cite{sdp} based approach to design the time-frequency localization optimized orthogonal filter banks. The double shift orthogonality constraints are fundamentally non-convex.
+The design problems proposed in the present have the form of the problem stated in Eq. \ref{eq: ortho. design problem}. Let 
+\begin{equation*}
+\mathbf{x}=\left[\begin{array}{ccccc}
+h_0(0) & h_0(1) & \ldots & h_0(M-1) & h_0(M)\end{array}\right]^{T},\, M\in\mathbb{N}
+\end{equation*}
+Where $h(n)$ is the real valued impulse response of the analysis low-pass filter. It is important to note that $\mathbf{x} \in \mathbb{R}^{M+1}$. In general the orthogonal filter bank design problem can be stated as,
+\begin{equation}
+\label{eq: ortho. design problem}
+	\begin{aligned}
+	& \underset{\mathbf{x}}{\text{minimize}}
+	& & \mathbf{x^T}\mathbf{Rx} \\
+	& \text{subject to}
+	& & \mathbf{A{x}}=\mathbf{0} \\
+	&&& \mathbf{{x}^{T}}\mathbf{{x}}=1\\
+	&&& \mathbf{{x}^{T}}\mathbf{\Theta_{2k}}\mathbf{{x}}=0,\,\,\,\, k=1,2........\frac{M-1}{2}
+	\end{aligned}
+	\end{equation}
+	Where $\mathbf{x^T}\mathbf{Rx}$ is the objective function in quadratic form and $\mathbf{A{x}}=\mathbf{0}$ is the formulation of vanishing moments and $\mathbf{{x}^{T}}\mathbf{\Theta_{2k}}\mathbf{{x}}=0,\,\,\,\,k=1,2........\frac{M-1}{2}$ is the formulation of double shift orthogonality constraints. All the formulations are explained in detail in Chapter \ref{Chap: The Orthogonal Design}. The problem stated by Eq. \ref{eq: ortho. design problem} is non-convex because of the double shift orthogonality constraints. The same problem can be transformed to a convex problem using trace parameterization \cite{PolynomialBook}. The problem (\ref{eq: ortho. design problem}) can be re-written as,
+	\begin{equation}
+	\label{eq: ortho. design problem in trace form 1}
+		\begin{aligned}
+		& \underset{\mathbf{x}}{\text{minimize}}
+		& & \trace(\mathbf{Rx}\mathbf{x^T}) \\
+		& \text{subject to}
+		& & \mathbf{A{x}{x}^T}=\mathbf{0} \\
+		&&& \trace(\mathbf{{x}}\mathbf{x^{T}})=1\\
+		&&& \trace(\mathbf{\Theta_{2k}}\mathbf{{x}}\mathbf{{x}^{T}})=0,\,\,\,\, k=1,2........\frac{M-1}{2}
+		\end{aligned}
+		\end{equation}
+Introducing a new variable $X={xx^T}$. It is to be noted that matrix $X$ is a unity rank positive semidefinite matrix. The above problem can be re-written as,
+\begin{equation}
+	\label{eq: ortho. design problem in trace form 2}
+		\begin{aligned}
+		& \underset{\mathbf{X}}{\text{minimize}}
+		& & \trace(\mathbf{RX}) \\
+		& \text{subject to}
+		& & \mathbf{AX}=\mathbf{0} \\
+		&&& \trace(\mathbf{X})=1\\
+		&&& \trace(\mathbf{\Theta_{2k}}\mathbf{X})=0,\,\,\,\, k=1,2........\frac{M-1}{2}\\
+		&&&\text{rank}(\mathbf{X}) = 1\\
+		&&&\mathbf{X} \succeq 0
+		\end{aligned}
+		\end{equation}
+The constrant $\text{rank}(\mathbf{X}) = 1$ is non-convex, whereas as all the constraints along with the objective function are linear and hence convex in  $\mathbf{X}$. The Problem \ref{eq: ortho. design problem in trace form 2} can be made convex if we drop the unity rank constraint \cite{SDR}. Here we drop the unity constraint, hence Problem \ref{eq: ortho. design problem in trace form 2} is reduced to,
+\begin{equation}
+	\label{eq: ortho. design problem in trace form 3}
+		\begin{aligned}
+		& \underset{\mathbf{X}}{\text{minimize}}
+		& & \trace(\mathbf{RX}) \\
+		& \text{subject to}
+		& & \mathbf{AX}=\mathbf{0} \\
+		&&& \trace(\mathbf{X})=1\\
+		&&& \trace(\mathbf{\Theta_{2k}}\mathbf{X})=0,\,\,\,\, k=1,2........\frac{M-1}{2}\\
+		&&&\mathbf{X} \succeq 0
+		\end{aligned}
+		\end{equation}
+Problem \ref{eq: ortho. design problem in trace form 3} is solved using CVX toolbox \cite{cvx}, the output of which is the matrix $\mathbf{X}$, the analysis filter obtained using the spectral factorization of the autocorrelation function obtained from matrix $\mathbf{X}$. Chapter \ref{Chap: The Orthogonal Design} discuss the problem formulation in detail.
+
+Earlier A. Karmakar \cite{Karmakar} employed a SDP \cite{sdp} based approach to design the orthogonal filter banks, in which stop band energy was taken as the optimality criterion. Yan and Lu \cite{TowardsGlobal} designed orthogonal filter banks using polynomial optimization techniques. Zhang and Davidson \cite{Zhang} designed signal adapted wavelets using SDP based approach. Dumitrescu and Popeea \cite{PolynomialBook, AccurateComputation} designed the compaction filters and orthogonal fitler banks using the SDP based approach. 
+
+\section{Organization of the Report}
+The report is organized into 5 chapters. Chapter 2 gives the brief overview of the time-frequency uncertainty literature along with the earlier work done to design filters and filter banks based on time-frequency uncertainty. The detailed formulation of all the three proposed design problems has been discussed in  Chapter 3. Chapter 4 discusses the results, in which we present eight design examples. Report ends with Chapter 5 providing critical remarks on the proposed framework  along with the scope of the future work.
+ 

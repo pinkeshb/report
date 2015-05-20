@@ -1,0 +1,447 @@
+\chapter{Design Examples}
+\label{Results and Discussions}
+In this chapter, design examples for the three design problems are discussed. We try to show, the effect of number of vanishing moments on the time-frequency properties of the filter banks. The effect of number of vanishing moments on the smoothness of the scaling and the wavelet function can also be clearly seen in the design examples discussed. For the Design Problem 1, the examples are simulated for different values of $\alpha \in [0,1]$. We try to observe the effect of $\alpha$ on the time-frequency properties of the design examples. We observe that $\alpha > 0.5$, affects the smoothness of scaling and wavelet function constructed using cascade algorithm. The discontinuities appear, in the scaling and wavelet function for $\alpha > 0.5$, where as the scaling and wavelet function seems smooth for $\alpha <0.5$. Also $\alpha =0$ shapes the frequency response of the analysis low-pass filter beautifully as more number of zeros on the unit circle in z-plane but this results in side lobes. It has been observed that the problem solved with $\alpha=1$ gives crude frequency response along with less smooth scaling and wavelet functions. Regularity is the measure of smoothness of the scaling and wavelet function. The regularity as a function of $\alpha$ can be evaluated as a future work.  
+
+In the design examples of the Design Problem $2$ and $3$, we try to get the results achieved in the design examples of Design Problem $1$. In {Ex. 6}, We fixed the value of frequency variance which was achieved in {Ex. 2} and we get almost similar results after designing the filter bank with the same parameters. In {Ex. 8}, we fix the value of time variance to the value which has been achieved in {Ex. 2} and then we solve the design problem with the same parameters as in {Ex. 2}, again we get similar results. Whereas in {Ex. 7}, we fixed the value of frequency variance as obtained in {Ex. 5} and solved the problem with the same parameters. The comparison between the obtained results is discussed in the Sec. \ref{sec: TFP of filters and wavelets} of this chapter.  
+
+We plot the frequency response, $H_0(\omega)$  and $H_1(\omega)$ of the analysis low-pass and high-pass filter. We also plot $R(\omega)$, the frequency response of autocorrelation function of the analysis low-pass filter along with $R(\omega + \pi)$. The analysis scaling function $\phi(t)$ and the wavelet function $\psi(t)$ has been plotted along with the pole-zero plot of the analysis filter. 
+
+\section{Design Examples for Design Problem 1}
+\label{sec: DEX DP1}
+\subsection{Design Example 1}
+\label{Design Example 1}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 12\\
+\alpha &= 0.5\\
+V &= 6
+\end{aligned}
+\end{eqnarray*}
+In this example we try to simultaneously optimize the time and frequency spread by taking $\alpha = 0.5$. We have taken $V=6$ for the present example, which is the maximum number of vanishing moments that can be achieved for a length $12$ orthogonal filter bank. The smooth scaling and the wavelet function are shown in Fig. \ref{Ex-1AnaScal} and \ref{Ex-1AnaWave} respectively. The $R(\omega)$ and $R(\omega + \pi)$, exhibiting the power complementarity are shown in Fig. \ref{Ex-1FreqResp_ACF}. The pole-zero plot of analysis low-pass filter is shown in Fig. \ref{Ex-1PZP}, the six zeros forming the half ring around $z=-1$, is inside the unit circle as the filter is minimum phase.
+
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-1]
+{
+\includegraphics[width=3in]{./DP1_DE1/1/LPHP.pdf}
+\label{Ex-1AnaFreqResp}
+}
+\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-1]
+{
+\includegraphics[width=3in]{./DP1_DE1/1/FR_ACF.pdf}
+\label{Ex-1FreqResp_ACF}
+}
+\\
+\subfloat[Analysis Scaling Function for Example-1]
+{
+\includegraphics[width=3in]{./DP1_DE1/1/ASF.pdf}
+\label{Ex-1AnaScal}
+}
+\subfloat[Analysis Wavelet for Example-1]{\includegraphics[width=3in]{./DP1_DE1/1/AWF.pdf}
+\label{Ex-1AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-1]
+{
+\includegraphics[width=3in]{./DP1_DE1/1/PZP.pdf}
+\label{Ex-1PZP}
+}
+
+\caption{Example 1}
+\label{Example 1}
+\end{figure*}
+
+\subsection{Design Example 2}
+\label{Design Example 2}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 12\\
+\alpha &= 0.7\\
+V &= 2
+\end{aligned}
+\end{eqnarray*}
+In this example, the same design as in Ex. 1 has been solved but with less number of vanishing moments, now we have only $2$ vanishing moments instead of $6$, also $\alpha = 0.7$ now. Because of the less number of vanishing moments, the scaling and wavelet function shown in Fig. \ref{Ex-2AnaScal} and \ref{Ex-2AnaWave} are not as much smooth as that in Ex. 1, the same also affects, the frequency response of the analysis low-pass and high-pass filter as shown in Fig. \ref{Ex-2AnaFreqResp}. The response is more crude than that of Ex. 1. The pole-zero plot of the minimum phase analysis low-pass filter is shown in Fig. \ref{Ex-2PZP}. 
+
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-2]
+{
+\includegraphics[width=3in]{./DP1_DE1/2/LPHP.pdf}
+\label{Ex-2AnaFreqResp}
+}
+\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-2]
+{
+\includegraphics[width=3in]{./DP1_DE1/2/FR_ACF.pdf}
+\label{Ex-2FreqResp_ACF}
+}
+\\
+\subfloat[Analysis Scaling Function for Example-2]
+{
+\includegraphics[width=3in]{./DP1_DE1/2/ASF.pdf}
+\label{Ex-2AnaScal}
+}
+\subfloat[Analysis Wavelet for Example-2]
+{
+\includegraphics[width=3in]{./DP1_DE1/2/AWF.pdf}
+\label{Ex-2AnaWave}
+}\\
+%, with
+\subfloat[Pole Zero Plot for Example-2]{\includegraphics[width=3in]{./DP1_DE1/2/PZP.pdf}
+\label{Ex-2PZP}}
+
+\caption{Example 2}
+\label{Example 2}
+\end{figure*}
+\subsection{Design Example 3}
+\label{Design Example 3}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 20\\
+\alpha &= 0\\
+V &= 6
+\end{aligned}
+\end{eqnarray*}
+In this example, we try to solve a bigger problem, now the length is $20$, with $6$ vanishing moments, $\alpha$ is taken to be $0$, i.e. we are only interested in minimizing the frequency variance. Hence we design a purely frequency optimized orthogonal filter bank in this example.  Vanishing moments gives the flatness to the frequency response at $\omega = \pi$, the higher the vanishing moments the better is the flatness, hence we can say vanishing moments help in shaping the frequency response of the filter. In the present example we are trying to minimize the frequency variance only, i.e. we are trying to narrow the filter frequency response as much as possible. Hence we get the narrower response for the present design example as shown in Fig. \ref{Ex-2AnaFreqResp}. The remarkable smoothness of the scaling and wavelet function can be seen in Fig. \ref{Ex-2AnaScal} and \ref{Ex-2AnaWave} respectively. It has been observed that solving the problem with $\alpha = 0$ gives zeros on the unit circle (other than $z=-1$), the same can be observed in present example in Fig. \ref{Ex-2PZP}.
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-3]{\includegraphics[width=3in]{./DP1_DE1/3/LPHP.pdf}
+\label{Ex-3AnaFreqResp}
+}\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-3]{\includegraphics[width=3in]{./DP1_DE1/3/FR_ACF.pdf}
+\label{Ex-3FreqResp_ACF}
+}\\
+\subfloat[Analysis Scaling Function for Example-3]{\includegraphics[width=3in]{./DP1_DE1/3/ASF.pdf}
+\label{Ex-3AnaScal}
+}\subfloat[Analysis Wavelet for Example-3]{\includegraphics[width=3in]{./DP1_DE1/3/AWF.pdf}
+\label{Ex-3AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-3]{\includegraphics[width=3in]{./DP1_DE1/3/PZP.pdf}
+\label{Ex-3PZP}}
+%\subfloat[Synthesis Wavelet for Example-1]{\includegraphics[width=3in]{./DP1_DE1/ACF.eps}
+%\label{Ex-1SynWave}
+%}
+\caption{Example 3}
+\label{Example 3}
+\end{figure*}
+\subsection{Design Example 4}
+\label{Design Example 4}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 20\\
+\alpha &= 1\\
+V &= 6
+\end{aligned}
+\end{eqnarray*}
+In this example, we try to evaluate the role of $\alpha$ on different properties of the design. In Ex. 3 we presented a purely frequency optimized ($\alpha=0$) filter bank, however in this example, we design purely time optimized ($\alpha=1$) filter bank. All the other parameters are same as in Ex. 3 except $\alpha$, which is unity in the present case. The discontinuities in the scaling and wavelet function can be seen in Fig. \ref{Ex-3AnaScal} and \ref{Ex-3AnaWave} respectively. The frequency response is shown in Fig. \ref{Ex-3AnaFreqResp}, as the time variance is minimum for the present design, the frequency response gets crude. The time localization optimized filter banks as in present example could be useful in detecting the hidden discontinuities in the signals, as in the applications like image edge detection.  
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-4]{\includegraphics[width=3in]{./DP1_DE1/4/LPHP.pdf}
+\label{Ex-4AnaFreqResp}
+}\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-4]{\includegraphics[width=3in]{./DP1_DE1/4/FR_ACF.pdf}
+\label{Ex-4FreqResp_ACF}
+}\\
+\subfloat[Analysis Scaling Function for Example-4]{\includegraphics[width=3in]{./DP1_DE1/4/ASF.pdf}
+\label{Ex-4AnaScal}
+}\subfloat[Analysis Wavelet for Example-4]{\includegraphics[width=3in]{./DP1_DE1/4/AWF.pdf}
+\label{Ex-4AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-4]{\includegraphics[width=3in]{./DP1_DE1/4/PZP.pdf}
+\label{Ex-4PZP}}
+
+\caption{Example 4}
+\label{Example 4}
+\end{figure*}
+
+\subsection{Design Example 5}
+\label{Design Example 5}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 20\\
+\alpha &= 0.5\\
+V &= 6
+\end{aligned}
+\end{eqnarray*}
+In this example, we changed $\alpha$ to $0.5$, hence we are in the midway of Ex. 3 and Ex. 4. The plots for the design examples are given in Fig. \ref{Example 5}. Not much difference can be seen in the plots of the present example and Ex. 4, however the time-frequency localization measures of the present design are better than that of Ex. 4.
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-5]{\includegraphics[width=3in]{./DP1_DE1/5/LPHP.pdf}
+\label{Ex-5AnaFreqResp}
+}\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-5]{\includegraphics[width=3in]{./DP1_DE1/5/FR_ACF.pdf}
+\label{Ex-5FreqResp_ACF}
+}\\
+\subfloat[Analysis Scaling Function for Example-4]{\includegraphics[width=3in]{./DP1_DE1/5/ASF.pdf}
+\label{Ex-5AnaScal}
+}\subfloat[Analysis Wavelet for Example-4]{\includegraphics[width=3in]{./DP1_DE1/5/AWF.pdf}
+\label{Ex-5AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-5]{\includegraphics[width=3in]{./DP1_DE1/5/PZP.pdf}
+\label{Ex-5PZP}}
+
+\caption{Example 5}
+\label{Example 5}
+\end{figure*}
+
+\section{Design Examples for Design Problem 2 and 3}
+In this section, we present three examples, in which we try to reproduce the results obtained in the Sec. \ref{sec: DEX DP1}. Examples 6 and 7 are the solution of Design Problem 2, whereas Example 8 is the solution to the Design Problem 3. The different design problems are explained in the Sec. \ref{sec: The Different Design Problems} of chapter \ref{Chap: The Orthogonal Design}. The time-frequency localization measures of analysis and synthesis low-pass filters of Example 2, 6, 8 and Example 3 and 5 are shown in Fig. \ref{fig:TF_PROPERTIES_of_reproduced_results}. 
+\subsection{Design Example 6}
+\label{Design Example 6}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 12\\
+\sigma_\omega^2 &= 1.1396\\
+V &= 2
+\end{aligned}
+\end{eqnarray*}
+In this example, we try to reproduce the results obtained in Ex. 2. The frequency variance in Example 2 was obtained to be $1.1396$. We fix the frequency variance to the same value and solve the Design Problem 2, after taking $L=12$ and $V=2$ as in Ex. 2. The time-frequency measures obtained for this example are almost same to that obtained in Ex. 2, which can be seen in Fig. \ref{fig:TF_PROPERTIES_of_reproduced_results}. The different plots for this design example are shown in Fig. \ref{Example 6}, the plots look similar to that of Ex. 2.
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-6]{\includegraphics[width=3in]{./DP2/6/LPHP.pdf}
+\label{Ex-6AnaFreqResp}
+}\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-6]{\includegraphics[width=3in]{./DP2/6/FR_ACF.pdf}
+\label{Ex-6FreqResp_ACF}
+}\\
+\subfloat[Analysis Scaling Function for Example-6]{\includegraphics[width=3in]{./DP2/6/ASF.pdf}
+\label{Ex-6AnaScal}
+}\subfloat[Analysis Wavelet for Example-6]{\includegraphics[width=3in]{./DP2/6/AWF.pdf}
+\label{Ex-6AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-6]{\includegraphics[width=3in]{./DP2/6/PZP.pdf}
+\label{Ex-6PZP}}
+
+\caption{Example 6}
+\label{Example 6}
+\end{figure*}
+
+\subsection{Design Example 7}
+\label{Design Example 7}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 20\\
+\sigma_\omega^2 &= 0.9876\\
+V &= 6
+\end{aligned}
+\end{eqnarray*}
+In this example, we try to reproduce the results obtained in Example 5. The frequency variance obtained in Example 5 was $0.9876$, we fix the frequency variance to $0.9876$ along with $L=20$ and $V=6$ and solve the Design Problem 2. Almost similar time-frequency localization measures are obtained which are shown in Fig. \ref{fig:TF_PROPERTIES_of_reproduced_results}. The different plots of the present example are shown in Fig. \ref{Example 7} which look similar to the plots of Ex. 5. 
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-7]{\includegraphics[width=3in]{./DP2/7/LPHP.pdf}
+\label{Ex-7AnaFreqResp}
+}\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-7]{\includegraphics[width=3in]{./DP2/7/FR_ACF.pdf}
+\label{Ex-7FreqResp_ACF}
+}\\
+\subfloat[Analysis Scaling Function for Example-7]{\includegraphics[width=3in]{./DP2/7/ASF.pdf}
+\label{Ex-7 AnaScal}
+}\subfloat[Analysis Wavelet for Example-7]{\includegraphics[width=3in]{./DP2/7/AWF.pdf}
+\label{Ex-7AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-7]{\includegraphics[width=3in]{./DP2/7/PZP.pdf}
+\label{Ex-7PZP}}
+%\subfloat[Synthesis Wavelet for Example-1]{\includegraphics[width=3in]{./DP1_DE1/ACF.eps}
+%\label{Ex-1SynWave}
+%}
+\caption{Example 7}
+\label{Example 7}
+\end{figure*}
+
+\subsection{Design Example 8}
+\label{Design Example 8}
+\subsubsection{Parameters Taken:}
+\begin{eqnarray*}
+\begin{aligned}
+L &= 12\\
+\sigma_n^2 &= 1.1396\\
+V &= 2
+\end{aligned}
+\end{eqnarray*}
+In this example, we solve the Design Problem 3 to reproduce the results of Example 2. In solving Design Problem 3, we first fix the time variance and then we solve the problem. The time variance obtained in Ex. 2 was $1.1396$. We fixed the time variance to $1.1396$, $L=12$ and $V=2$ and solve the problem. The plots (Fig. \ref{Example 8}) obtained in the design are similar to the plots of Example 2 and 6. The time-frequency localization measures for the Examples 2, 6 and 8 are shown in Fig. \ref{fig:TF_PROPERTIES_of_reproduced_results}.
+
+\begin{figure}[tbh]
+\centering{}\includegraphics[width=4in]{TF_PROPERTIES_of_reproduced_results.png}
+\caption{\label{fig:TF_PROPERTIES_of_reproduced_results}Time-Frequency Localization Measures.}
+\end{figure}
+
+\begin{figure*}
+\centering
+\subfloat[Plot of $|H_{0}(\omega)|$ and $|H_{1}(\omega)|$ for Example-8]{\includegraphics[width=3in]{./DP3/8/LPHP.pdf}
+\label{Ex-8AnaFreqResp}
+}\subfloat[Plot of $R(\omega)$ and $R(\omega + \pi)$ for Example-8]{\includegraphics[width=3in]{./DP3/8/FR_ACF.pdf}
+\label{Ex-8FreqResp_ACF}
+}\\
+\subfloat[Analysis Scaling Function for Example-8]{\includegraphics[width=3in]{./DP3/8/ASF.pdf}
+\label{Ex-7AnaScal}
+}\subfloat[Analysis Wavelet for Example-8]{\includegraphics[width=3in]{./DP3/8/AWF.pdf}
+\label{Ex-8AnaWave}
+}\\
+%
+\subfloat[Pole Zero Plot for Example-8]{\includegraphics[width=3in]{./DP3/8/PZP.pdf}
+\label{Ex-8PZP}}
+%\subfloat[Synthesis Wavelet for Example-1]{\includegraphics[width=3in]{./DP1_DE1/ACF.eps}
+%\label{Ex-1SynWave}
+%}
+\caption{Example 8}
+\label{Example 8}
+\end{figure*}
+
+\clearpage
+\section{Time-Frequency properties of obtained filters}
+\label{sec: TFP of filters and wavelets}
+In this section, we discuss the time-frequency properties of the filter banks obtained in the different design examples. In the proposed design approaches, we try to optimize the time variance and the frequency variance of the impulse response of the analysis filter, that is given by the following two equations respectively.
+\begin{eqnarray*}
+\sigma_n^2 &=& \sum_{n}(n-n_0)^2|h(n)|^2  \\
+\sigma_\omega^2 &=& \int_{0}^{\pi}\omega^2|H(\omega)|^2 \frac{d\omega}{\pi}
+\end{eqnarray*}
+Where $H(w)$ is DTFT of $h(n)$ and
+\begin{eqnarray*}
+E &=& \sum_{n} |h(n)|^2 \\
+  &=& \frac{1}{2\pi}\int_{-\pi}^{\pi} |H(\omega)|^2 d\omega = 1 
+\end{eqnarray*}
+and
+\begin{eqnarray*}
+n_0 = \sum_{n}n|h(n)|^2
+\end{eqnarray*}
+
+The analysis low-pass and high-pass filter coefficients of the Design Examples 1, 2 and 6, 8 are tabulated in Table \ref{coefftableEx12} and \ref{coefftableEx6-8} respectively. The impulse response of the high-pass filter is given by the following equation,
+\begin{eqnarray*}
+h_1(n) = (-1)^n h_0(M - n)
+\end{eqnarray*}
+The coefficients of the analysis low-pass filters of the Design Example 3, 4, 5 and 7 are tabulated in Table \ref{coefftableEx3-5 and 7}. After obtaining the filter coefficients, time and frequency variances are calculated along with the time-frequency product. It must be noted that the impulse response of the synthesis low-pass filter is flipped version of the impulse response of the analysis low-pass filter. Hence the analysis and the synthesis low-pass filter have equal time frequency measures. The time-frequency localization measures of the analysis and synthesis low-pass filters of all the design examples are tabulated in Table \ref{TFP of ana. and synth. LPF}. 
+
+The time variance for Design Example 1 is larger than that of Ex. 2, 6 and 8, the reason is the number of vanishing moments, which is $6$ in Ex. 1 and $2$ in the remaining examples. In other words, design example 1 has less degrees of freedom to minimize the objective function. It can also be observed that the time variance of the Ex. 3 is larger than the others, the reason is that the value of $\alpha$ was set to $0$, i.e. the frequency variance was minimized only. 
+It should be noted that the frequency variances of the filter impulse response for Ex. 2, 6 and 8 are similar.  It is important to note that the frequency spread for Ex. 3 is smallest. In Ex. 3 only frequency variance was minimized, and hence the spread of the filter is smallest. 
+ \begin{table}
+ \resizebox{0.9\textwidth}{!}
+ {    % if resizebox is needed
+ \begin{minipage}{\textwidth}
+ \onehalfspacing
+ \centering
+ \caption{Time-Frequency properties of the analysis and synthesis LPF of Design Examples}
+ \label{TFP of ana. and synth. LPF}
+ \begin{tabular}{c|c|c|c|c|c|c|c|c}
+ \hline
+  & \textbf{Ex. 1}   & \textbf{Ex. 2} & \textbf{Ex. 3} & \textbf{Ex. 4} & \textbf{Ex. 5}   & \textbf{Ex. 6} & \textbf{Ex. 7} & \textbf{Ex. 8}\\
+ \hline
+ \hline
+ 
+        \textbf{ Time Var.} & 0.9123 & 0.2863 & 2.9453 & 0.5476 & 0.5536 & 0.2856 & 0.5518 & 0.2855 \\
+ %       \midrule
+        \textbf{Freq. Var.} & 0.9056 & 1.1396 & 0.8408 & 1.0144 & 0.9876 & 1.1396 & 0.9876 & 1.1394 \\
+       \textbf{TFP}  & 0.8262 & 0.3262 & 2.4764 & 0.5554 & 0.5468 & 0.3254 & 0.5450 & 0.3253 \\
+ %       \bottomrule
+    
+ \hline 
+ \end{tabular}
+ \end{minipage}
+ }
+ \end{table}
+\begin{table}
+\onehalfspacing
+\centering
+\caption{Filter Coefficients of Design Examples}
+\label{coefftableEx6-8}
+\begin{tabular}{c|cc|ccc}
+\hline
+ & \multicolumn{2}{c|}{Example 6}   & \multicolumn{2}{c}{Example 8}\\
+\hline 
+$n$ & $h_{0}(n)$ & $h_{1}(n)$ & $h_{0}(n)$ & $h_{1}(n)$ &\tabularnewline
+\hline 
+
+\hline
+      0     & 0.567241822046 & -0.003300612963 & 0.563354783304 & -0.002708168316 \\
+      1     & 0.811398939993 & -0.004721291265 & 0.813447649375 & -0.003910418827 \\
+      2     & 0.113515324092 & -0.004822740050 & 0.116545961910 & -0.004200379824 \\
+      3     & -0.081603088767 & -0.005478945526 & -0.083549160508 & -0.004854454888 \\
+      4     & 0.008374909878 & -0.006767688996 & 0.010957266389 & -0.006395484807 \\
+      5     & -0.007798917183 & -0.007775377533 & -0.009489541139 & -0.007485762275 \\
+      6     & 0.007775377533 & -0.007798917183 & 0.007485762275 & -0.009489541139 \\
+      7     & -0.006767688996 & -0.008374909878 & -0.006395484807 & -0.010957266389 \\
+      8     & 0.005478945526 & -0.081603088767 & 0.004854454888 & -0.083549160508 \\
+      9     & -0.004822740050 & -0.113515324092 & -0.004200379824 & -0.116545961910 \\
+      10    & 0.004721291265 & 0.811398939993 & 0.003910418827 & 0.813447649375 \\
+      11    & -0.003300612963 & -0.567241822046 & -0.002708168316 & -0.563354783304 \\
+\hline 
+\end{tabular}
+%\centering
+\end{table}
+
+\begin{table}
+\onehalfspacing
+\centering
+\caption{Filter Coefficients of Design Examples}
+\label{coefftableEx12}
+\begin{tabular}{c|cc|ccc}
+\hline
+ & \multicolumn{2}{c|}{Example 1}   & \multicolumn{2}{c}{Example 2}\\
+\hline 
+$n$ & $h_{0}(n)$ & $h_{1}(n)$ & $h_{0}(n)$ & $h_{1}(n)$ &\tabularnewline
+\hline 
+
+\hline
+	0     & 0.132185728555  & -0.000909046447 & 0.571182784311  & -0.003930240012 \\
+    1     & 0.541299247393  & -0.003722536272 & 0.809228936379  & -0.005568206942 \\
+    2     & 0.743596109666  & 0.002091614805  & 0.110662346640  & -0.005446359196 \\
+    3     & 0.243120202786  & 0.027833909285  & -0.079741449148 & -0.006088694678 \\
+    4     & -0.241455985037 & 0.015138742799  & 0.005597719251  & -0.007088871255 \\
+    5     & -0.093634092804 & -0.096892413669 & -0.005916165924 & -0.008007959709 \\
+    6     & 0.096892413669  & -0.093634092804 & 0.008007959709  & -0.005916165924 \\
+    7     & 0.015138742799  & 0.241455985037  & -0.007088871255 & -0.005597719251 \\
+    8     & -0.027833909285 & 0.243120202786  & 0.006088694678  & -0.079741449148 \\
+    9     & 0.002091614805  & -0.743596109666 & -0.005446359196 & -0.110662346640 \\
+    10    & 0.003722536272  & 0.541299247393  & 0.005568206942  & 0.809228936379  \\
+    11    & -0.000909046447 & -0.132185728555 & -0.003930240012 & -0.571182784311 \\
+\hline 
+\end{tabular}
+%\centering
+\end{table}
+
+\begin{table}
+\onehalfspacing
+\centering
+\caption{Filter Coefficients of Design Examples}
+\label{coefftableEx3-5 and 7}
+\begin{tabular}{c|c|c|c|c}
+\hline
+ & Example 3   & Example 4 & Example 5 & Example 7\\
+\hline 
+$n$ & $h_{0}(n)$ & $h_{0}(n)$ & $h_{0}(n)$ & $h_{0}(n)$\tabularnewline
+\hline 
+
+\hline
+%\toprule
+    0     & 0.134853752488 & 0.251649832525 & 0.241971496065 & 0.241998903060 \\
+%    \midrule
+    1     & 0.507485955254 & 0.752618197767 & 0.738963866138 & 0.738868608303 \\
+    2     & 0.697620208685 & 0.584864980916 & 0.604854444691 & 0.604921368095 \\
+    3     & 0.335544432762 & -0.094621416917 & -0.071940007498 & -0.071828747896 \\
+    4     & -0.163106499286 & -0.124894408497 & -0.148179777200 & -0.148366027602 \\
+    5     & -0.228954331660 & 0.055082807763 & 0.046107911195 & 0.046459821737 \\
+    6     & 0.058567353200 & -0.015031543262 & 0.002938272940 & 0.002687998288 \\
+    7     & 0.151739183957 & 0.006470637966 & 0.003744942074 & 0.003219754820 \\
+    8     & -0.031882272687 & 0.000016548419 & -0.003817015232 & -0.003144224454 \\
+    9     & -0.098455971926 & -0.006475880465 & -0.004254668772 & -0.004373140808 \\
+    10    & 0.018450619104 & 0.008397933982 & 0.007302506893 & 0.007149225792 \\
+    11    & 0.070333766588 & -0.008601037517 & -0.007536277281 & -0.007250630322 \\
+    12    & -0.021404340886 & 0.006325779751 & 0.005633752521 & 0.005354849366 \\
+    13    & -0.044272886618 & -0.002395363828 & -0.002646836610 & -0.002458461179 \\
+    14    & 0.025856534435 & -0.000080125828 & 0.000139170987 & 0.000060100694 \\
+    15    & 0.014400503472 & 0.005742064518 & 0.005370513478 & 0.005148994934 \\
+    16    & -0.015069934814 & -0.006703710664 & -0.006000915941 & -0.005723285589 \\
+    17    & 0.000141993280 & 0.000143203721 & 0.000038902642 & 0.000030552142 \\
+    18    & 0.003221558739 & 0.002561560445 & 0.002264923761 & 0.002167970260 \\
+    19    & -0.000856061714 & -0.000856498421 & -0.000741642478 & -0.000710067270 \\
+%    \bottomrule
+\hline 
+\end{tabular}
+%\centering
+\end{table}
+

@@ -1,0 +1,18 @@
+\BOOKMARK [0][-]{chapter.1}{1 Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{1.1 Direct and Indirect illumination}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{1.2 Organization of the Report}{chapter.1}% 3
+\BOOKMARK [0][-]{chapter.2}{2 Literature Survey}{}% 4
+\BOOKMARK [1][-]{section.2.1}{2.1 Radiosity}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.2}{2.2 Fredholm IE}{chapter.2}% 6
+\BOOKMARK [0][-]{chapter.3}{3 Radiosity Problem formulation and Integral Equation}{}% 7
+\BOOKMARK [1][-]{section.3.1}{3.1 Problem definition}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.2}{3.2 Radiosity Integral Equation}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.3}{3.3 Analytical Solution}{chapter.3}% 10
+\BOOKMARK [0][-]{chapter.4}{4 Projection methods for radiosity problem}{}% 11
+\BOOKMARK [1][-]{section.4.1}{4.1 Projecting radiosity function}{chapter.4}% 12
+\BOOKMARK [0][-]{chapter.5}{5 Wavelets}{}% 13
+\BOOKMARK [0][-]{chapter.6}{6 Wavelet radiosity}{}% 14
+\BOOKMARK [0][-]{chapter.7}{7 conclusion}{}% 15
+\BOOKMARK [0][-]{section*.5}{Appendices}{}% 16
+\BOOKMARK [0][-]{appendix.A}{A }{}% 17
+\BOOKMARK [1][-]{section.A.1}{A.1 Derivation of Matrix Formulation for Frequency Variance}{appendix.A}% 18

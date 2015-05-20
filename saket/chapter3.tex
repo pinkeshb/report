@@ -1,0 +1,505 @@
+\chapter{The Orthogonal Design}
+%\section{\label{sec:problem_formulation}Problem Formulation}
+Filter bank designing is basically an optimization problem in which an objective function is to be minimized (or maximized) keeping the constraints followed. The two primary constraints for designing the orthogonal filter banks are the vanishing moment (VM) constraint and the double shift orthogonality (DSO) constraints. The third constraint that is been imposed in the present designs is the unity norm constraint, i.e. the norm of the filter impulse response should be unity. The aim is to design the time-frequency localization optimized orthogonal filter bank. In the present work, three design problems have been formulated and solved to design the optimal filter banks. All the three constraints are common the three design problems. All the three design problems have been solved using iterative semidefinite programming as explained in \ref{sec: Iterative SDP}.
+
+In the design problem 1, the objective function is taken to be the convex combination of time variance and frequency variance of the analysis low-pass filter (CCTFV). The objective function is given as;
+\begin{eqnarray}
+\label{eq: CCTFV}
+\Phi = \alpha \sigma_n^2 + (1-\alpha)\sigma_{\omega}^{2} 
+\end{eqnarray}
+Where $\alpha \in [0,1]$ and $\sigma_n^2$ and $\sigma_{\omega}^{2}$ is the time variance and the frequency variance of the filter impulse response, respectively. Time variance and frequency variance are described and formulated in the Sections \ref{sec: Time Variance} and \ref{sec: freq. var.} respectively. The CCTFV is formulated in the Section \ref{sec: CCTFV}. The problem is to find a vector that minimizes $\Phi$ subjected to the three constraints. Iterative SDP has been used to solve the problem. The detailed description and formulation of the objective function and constraints is described in this chapter.
+
+In the design problem 2, at first the frequency variance is fixed to a constant value and then the time variance is minimized. Hence the objective function taken in this approach is the time variance itself, where as one constraint has been increased, that constraint is the fixed frequency variance. The whole approach is described in detail in sub-section \ref{sub: The Design Problem 2}.
+
+In the design problem 3, the frequency variance is minimized after fixing the time variance to a constant value. The objective function is the frequency variance itself. There is one more constraint along with the three constraints, i.e. the fixed time variance. Sub-section \ref{sub: The Design Problem 2} describes the third approach. %\subsection{\label{sub:objective function}Objective Function}
+\section{Time Variance}
+\label{sec: Time Variance}
+Consider a causal FIR filter with the following difference equation.
+\begin{eqnarray}
+\label{filterIO}
+y(n) = \sum_{n=0}^{M} h(k)x(n-k)
+\end{eqnarray}
+
+Where $M \in \mathbb{N}$ and $x(n)$ is the input to the filter and $y(n)$ is the output of the filter. Length of the filter is $M+1$.
+Time variance of a discrete time signal is a measure of the spread of a signal in the time domain. Time variance of a unity norm sequence $h(n)$ is given by
+\begin{eqnarray}
+\label{eq: time variance}
+\sigma_n^2 = \sum_{n=-\infty}^{\infty}(n-n_0)^2 |h(n)|^2
+\end{eqnarray}
+Where $n_0$ is the time center and is given by
+\begin{equation}
+n_0 = \sum_{n=-\infty}^{\infty} n |h(n)|^2
+\end{equation}
+In the present case 
+\begin{equation*}
+\label{eq: h(n) zero}
+h(n)=0 ,\, \forall n \in \{[-\infty,0) \cup (M,\infty]\}
+\end{equation*}
+Hence equation \ref{eq: time variance} can be written as
+\begin{eqnarray}
+\label{eq: our time variance}
+\sigma_n^2 = \sum_{n=0}^{M}(n-n_0)^2 |h(n)|^2
+\end{eqnarray}
+where
+\begin{equation}
+n_0 = \sum_{n=0}^{M} n |h(n)|^2
+\end{equation} 
+Equation \ref{eq: our time variance} can be written in matrix form as follows,
+\begin{eqnarray}
+\label{eq: time variance quad. form}
+\sigma_n^2 = \mathbf{h}^T\mathbf{Ph}
+\end{eqnarray}
+where $\mathbf{h} \in \mathbb{R}^{M+1}$ is given in equation \ref{eq:FilterVector}
+and $\mathbf{P} \in \mathbb{R}^{(M+1) \times (M+1)}$ and is given by,
+\begin{equation}
+\label{eq: time variance matrix}
+\mathbf{P} = 
+\left[
+\begin{array}{ccccccc}
+(0-n_0)^2 &                &            &           &                &               &\\ 
+\\
+          & (1-n_0)^2      &            &           &\text{\Huge{0}} &               &\\ 
+\\
+		  &		           & (2-n_0)^2  &           &                &               &\\
+\\
+          &\text{\Huge{0}} &	        &  \ddots   &                &               &\\
+\\
+          &  	           &            &           &                & (M - n_0)^2   &          
+
+\end{array}
+\right]
+\end{equation}
+Hence the $(k,l)^{th}$ element of the matrix $\mathbf{P}$ is obtained as
+\begin{eqnarray}
+\mathbf{P} = \begin{cases}
+(k-n_0)^2 & \text{if} k = l\\
+0         & \text{if} k\neq l
+\end{cases}
+\end{eqnarray}
+Where ${k,l} \in \{0,1,2,...M \}$. Note that the matrix $\mathbf{P}$ is a real symmetric positive definite matrix.
+The Equation \ref{eq: time variance quad. form} can also be written in the following form,
+
+\begin{eqnarray*}
+\begin{aligned}
+\sigma_n^2 &= \trace(\sigma_n^2) \, \, \,\, (\because \text{ a scaler is equal to its trace)} %\\
+\\ \implies \sigma_n^2 &= \trace(\mathbf{h}^T\mathbf{Ph})\,\,\,\, (\text{Using Eq. \ref{eq: time variance quad. form}}) 
+\\	 \implies \sigma_n^2  &= \trace(\mathbf{Ph}\mathbf{h}^T)\,\,\,\, (\because \trace(\mathbf{ABC})=\trace(\mathbf{BCA})) % \\
+\\ \text{Where}\,\, \mathbf{A},&\mathbf{B}\,\, \text{and} \,\, \mathbf{C} \text{are the matrices of relevant sizes.}
+\\ \text{Let}\,\, \mathbf{X} &= \mathbf{h}{\mathbf{h}^T}
+\end{aligned}
+\end{eqnarray*}
+Hence 
+\begin{eqnarray}
+\label{eq: time variance in trace form}
+\sigma_n^2 = \trace(\mathbf{PX})
+\end{eqnarray}
+
+\section{Frequency Variance}
+\label{sec: freq. var.}
+Frequency variance of a sequence $h(n)$ is a measure of the spread of the spectrum of the signal. The spectrum could be the DTFT of the sequence or the DFT of the sequence. In the present work, variance of the DTFT of the sequence has been taken into account and variance of the DTFT of the signal has been called frequency variance in the whole report. The frequency variance of a real valued unity norm discrete time sequence $h(n)$ is given by
+\begin{eqnarray}
+\sigma_{\omega}^{2}=\int_{0}^{\pi}\omega^{2}|H(\omega)|^{2}\frac{d\omega}{\pi}\label{eq:Frequency variance}
+\end{eqnarray}
+To formulate the frequency variance in the matrix form, it is necessary to formulate the DTFT first. The Discrete Time Fourier Transform (DTFT) of the $h(n)$ is given by
+\begin{eqnarray}
+\label{DTFT}
+H(\omega) = \sum_{n=0}^{M} h(n) e^{-jwn}
+\end{eqnarray}
+where $\omega$ is the normalized digital frequency. Equation \ref{DTFT} can be written in the following form.
+\begin{equation}
+H(w)=\mathbf{e^T}(\omega)\mathbf{h}  \\ = \mathbf{h^{T}e}(\omega)   
+\end{equation}
+where 
+\begin{equation}
+\label{eq:FilterVector}
+\mathbf{h}=\left[\begin{array}{ccccc}
+h(0) & h(1) & \ldots & h(M-1) & h(M)\end{array}\right]^{T},\, N\in\mathbb{N}
+\end{equation}
+and
+\begin{equation}
+\label{eq:Evector}
+\mathbf{e}(\omega)=\left[\begin{array}{cccccc}
+e^{-j0w} & e^{-j1w} & e^{-j2w} & \ldots & \ldots & e^{-jM\omega}\end{array}\right]^{T},\omega\in[-\pi,\pi]
+\end{equation}
+Now
+\begin{eqnarray}
+\label{eq: H(w) sq}
+\begin{aligned}
+|H(\omega)|^2 &= H(\omega)H^*(\omega)\\
+&= \mathbf{h^{T}e}(\omega) \{ \mathbf{h^{T}e}(\omega) \}^{H}\\
+&= \mathbf{h^{T}e}(\omega) \mathbf{e}^{H}(\omega) \mathbf{h}\\
+\end{aligned}
+\end{eqnarray}
+Substituting the result obtained from Equation \ref{eq: H(w) sq} in Equation \ref{eq:Frequency variance} following expression is obtained for the frequency variance.
+\begin{equation}
+\label{eq:Frequency Variance in quad. form 1}
+\sigma_{\omega}^{2}=\mathbf{h^{T}\left\{ \int_{0}^{\pi}\omega^{2}e(\omega)e^{H}(\omega)\frac{d\omega}{\pi}\right\} h}
+\end{equation}
+Eq. \ref{eq:Frequency Variance in quad. form 1} can be expressed as;
+\begin{eqnarray}
+\label{eq:Frequency Variance in quad. form 2}
+\sigma_{\omega}^{2} = \mathbf{h^TFh}
+\end{eqnarray}
+Where $ \mathbf{F} \in {\mathbb{C}^{(M + 1) \times (M + 1)}}$ and the \{$(k,l)^\text{th}$\} element of the frequency variance matrix $\mathbf{F}$ can be obtained as;
+ \begin{eqnarray}
+ \label{Freq. Var. matrix}
+ \mathbf{F_{k,l}} =  \begin{cases}
+ \frac{\pi^2}{3}\,\,\, \text{if}\,\, k=l \\ 
+ \frac{\pi^2{(-1)^{(l-k)}}}{j(l-k)} + \frac{2\pi{(-1)^{(l-k)}}}{(l-k)^2} + \frac{2\left(1 - {(-1)^{(l-k)}}\right)}{j{(l-k)^3}}\,\,\, \text{if}\,\, l \neq k
+ \end{cases}
+ \end{eqnarray}
+ Where ${k,l} \in \{0,1,2,...M\}$. Note that the matrix $\mathbf{F}$ is a complex hermitian symmetric positive definite matrix. The detailed derivation for frequency variance matrix is given in the appendix. Eq. \ref{eq:Frequency Variance in quad. form 2} can be written in trace form as,
+ \begin{eqnarray}
+ \label{eq: Freq. Var. in trace form}
+ \begin{aligned}
+ \sigma_{\omega}^{2} &= \trace({\mathbf{Fhh^T}})\\
+ 					 &=	\trace({\mathbf{FX}})
+ \end{aligned}
+  \end{eqnarray}
+\section{The CCTFV}
+\label{sec: CCTFV}
+CCTFV is the convex combination of time variance and frequency variance. Eq. \ref{eq: CCTFV} describes CCTFV mathematically. Substituting the value of $\sigma_n^2$ and $\sigma_{\omega}^{2}$  from Eq. \ref{eq: time variance quad. form} and Eq. \ref{eq:Frequency Variance in quad. form 2} in Eq. \ref{eq: CCTFV}, we get
+\begin{eqnarray*}
+\begin{aligned}
+\Phi &= \alpha \mathbf{h^TPh}  + (1 - \alpha) \mathbf{h^TFh} \\
+\text{i.e.} \,\,\,\,
+\Phi &= \mathbf{h^T} \left\{\alpha \mathbf{P}  + (1 - \alpha) \mathbf{F}\right\}\mathbf{h}\\
+\,\,\,\,\,\,\,\,\,\,\, \text{Where,} \,\,\,\,\,
+& \alpha \in [0,1]
+\end{aligned}
+\end{eqnarray*}
+Hence,
+\begin{eqnarray}
+\label{eq: CCTFV in quad. form}
+\Phi = \mathbf{h^TRh}
+\end{eqnarray}
+Where 
+\begin{eqnarray}
+\label{eq: matrix R}
+\mathbf{R} = \alpha \mathbf{P}  + (1 - \alpha) \mathbf{F}
+\end{eqnarray}
+Equation \ref{eq: CCTFV} can be written as 
+\begin{eqnarray}
+\label{eq: CCTFV trace form}
+\begin{aligned}
+\Phi &= \trace(\mathbf{Rh{h^T}})\\
+       &= \trace(\mathbf{RX})    
+\end{aligned}
+\end{eqnarray}
+The CCTFV can not be minimized after a certain point. CCTFV do have a lower bound. It can simply be derived from the fact that the arithmetic mean (A.M.) of two real numbers is greater than the geometric mean (G.M.), Mathematically,
+\begin{eqnarray}
+\begin{aligned}
+\frac{\alpha  \sigma_n^2 + (1-\alpha) \sigma_\omega^2}{2} \geq \sqrt{\alpha  \sigma_n^2 (1-\alpha)\sigma_\omega^2}\\
+\alpha  \sigma_n^2 + (1-\alpha) \sigma_\omega^2 \geq \sqrt{\alpha(1-\alpha)}\,\,2\sigma_n \sigma_\omega\\
+\end{aligned}
+\end{eqnarray}
+Hence,
+\begin{eqnarray}
+\Phi \geq \sqrt{\alpha(1-\alpha)}\,\,2 \sigma_n \sigma_\omega
+\end{eqnarray}
+The product of time-frequency variances for a low-pass sequence is bounded by $\frac{1}{4}$, mathematically,
+\begin{eqnarray}
+\begin{aligned}
+\sigma_n^2 \sigma\omega^2 \geq \frac{1}{4}\\
+\text{i.e.} \,\,\,\, \sigma_n \sigma_\omega \geq \frac{1}{2}
+\end{aligned}
+\end{eqnarray}
+Hence, for the low-pass discrete sequences,
+\begin{eqnarray}
+\label{eq: CCTFV Bound LP}
+\Phi \geq \sqrt{\alpha(1-\alpha)}
+\end{eqnarray}
+The above inequality holds true for any kind of low-pass discrete sequence, where as for high-pass or all-pass sequences the bound is zero, because the bound on time-frequency product for discrete signal is,
+\begin{eqnarray}
+\begin{aligned}
+\sigma_n^2 \sigma_\omega^2 &\geq \frac{1}{4} (1 - H(e^{j\pi}))^2 \\
+H(e^{j\pi}) &= 1 \,\,\,\,\,\,\, \text{for all-pass and high-pass sequences} \\
+\text{Hence,}\,\,\,\,
+\sigma_n^2 \sigma_\omega^2 &\geq 0 \,\,\,\,\,\,\, \text{for all-pass and high-pass sequences} 
+\end{aligned}
+\end{eqnarray}
+Hence, for the sequences with $H(e^{j\pi}) = 1$, the following inequality holds,
+\begin{eqnarray}
+\label{eq: CCTFV Bound HP}
+\Phi \geq 0
+\end{eqnarray}
+\section{The Double Shift Orthogonality}
+\label{sec: The Double Shift Orthogonality}
+To design the perfect reconstruction filter bank, impulse response of the analysis low-pass filter  must be orthogonal to its even shifts i.e. the dot product of the sequence to its even shifts must be zero. In other words the autocorrelation function $r_h(k)$ of the filter impulse response $h(n)$ must be zero at even value of $k$ except $k=0$.
+To formulate DSO constraints, it is necessary to understand the formulation of autocorrelation function. ACF of a finite length sequence can be formulated in quadratic form and hence in SDP form using trace parameterization. Next Sub-section describes the formulation of ACF.
+\subsection{Formulation of ACF}
+\label{sub: Formulation of ACF}
+Autocorrelation function of a finite length sequence is a symmetric odd length sequence. As ACF is symmetric, only right half part can be computed, the remaining coefficients can be computed employing symmetry. Filter impulse response $h(n)$ is non-zero over the range $n=0$ to $n=M$, where $M$ is a odd natural number. Mathematically
+\begin{equation*}
+h(n)=0 ,\, \forall n \in \{[-\infty,0) \cup (M,\infty]\}
+\end{equation*}
+It can be noted that, the ACF, $r_h(k)$ of $h(n)$ is non-zero over the range $k=-M$ to $k=M$, mathematically   
+\begin{equation*}
+r_h(k)=0 ,\, \forall \,\, |k| > M
+\end{equation*}
+Also,
+$$r_h(k) = r_h(-k)$$
+Therefore, all the information of ACF is contained in the ACF coefficients from $k=0$ to $k=M$, which is given by the following equation.
+\begin{eqnarray}
+\label{eq: ACF}
+\begin{aligned}
+r(k) &= \sum_{n=k}^{M} h(n)h(n-k)\\
+     &= \mathbf{{h^T}{Q_k}h},\hspace{0.2cm} k=\left\{0,1,...M\right\}
+\end{aligned}
+\end{eqnarray}
+Where $Q_0 = I_{M+1}$ is the identity matrix of order $M+1$.
+	and
+	\begin{eqnarray}
+	\label{eq: DSO matrix}
+	Q_k = \frac{1}{2} \toep(e_k),\,\, k\ne 0
+	\end{eqnarray}
+	and
+	\begin{eqnarray}
+	e_k = 
+	[
+	\underbrace{0 \,\,\,\, 0  \,\,\,\, 0 \,\,\,\, \ldots \,\,\,\, \ldots \,\,\,\, 0}_{k -1 \,\,\, zeros} \,\,\,\, 1 \,\,\,\, 0 \,\,\,\, 0 \,\,\,\, 0  
+	]^T
+	\end{eqnarray}
+	
+		For Example, for $M=3$ 
+		\begin{eqnarray*}
+		\begin{aligned}
+		 e_1 &= \left[\begin{array}{cccc}
+		 0 & 1 & 0 & 0 
+		 \end{array}
+		 \right]\\
+%		 \end{eqnarray*}
+%		 \begin{eqnarray*}
+		 2Q_1 &= \left[\begin{array}{cccccc}
+		 	 0 & 1 & 0 & 0 \\
+		 	 1 & 0 & 1 & 0 \\
+		 	 0 & 1 & 0 & 1 \\
+		 	 0 & 0 & 1 & 0 
+		 	 \end{array}
+		 	 \right]\\ 
+		 	 \end{aligned}
+		 	 \end{eqnarray*}
+		 	 and 
+		 	 \begin{eqnarray*}
+		 	 \begin{aligned}
+		 e_2 &= \left[\begin{array}{cccc}
+		 	 0 & 0 & 1 & 0 
+		 	 \end{array}
+		 	 \right]\\
+%		 	 \end{eqnarray*}
+%		 	 \begin{eqnarray*}
+		 	 2Q_2 &=\left[\begin{array}{cccccc}
+		 	 	 0 & 0 & 1 & 0 \\
+		 	 	 0 & 0 & 0 & 1 \\
+		 	 	 1 & 0 & 0 & 0 \\
+		 	 	 0 & 1 & 0 & 0 
+		 	 	 \end{array}
+		 	 	 \right]
+	 		\end{aligned}
+	 		\end{eqnarray*}
+Hence for each index $k$ there is a quadratic form $\mathbf{h^TQ_kh}$. In SDP form ACF can be written as follows,
+\begin{eqnarray}
+\label{eq: ACF SDP form}
+r_h(k) = \trace(\mathbf{Q_kX})
+\end{eqnarray}
+Following equation  describes the DSO constraint,
+\begin{eqnarray}
+\label{eq: DSO constraint}
+r_h(2k) = 0 \,\, \,\, k=1,2,...\frac{M-1}{2}
+\end{eqnarray}
+Eq. \ref{eq: DSO constraint} in SDP form as, 
+\begin{eqnarray}
+\begin{aligned}
+\label{eq: DSO in SDP form}
+\trace(Q_{2k}X) = 0  \,\, \,\, k=1,2,...\frac{M-1}{2}
+\end{aligned}
+\end{eqnarray}
+The above form is important because it can be directly put in the semidefinite program.
+\section{Vanishing Moments}
+\label{sec: VM}
+In certain applications, especially in the design of wavelet filter
+banks, The low-pass filter is required to be regular. A low-pass filter
+$H(z)$ is said to be $V-$regular if it has $V$ multiple zeros
+at $z=-1$, or equivalently, the frequency response of the filter
+satisfies;
+\begin{eqnarray}
+\label{eq: VM H(w)}
+ \frac{d^{k}H(e^{j\omega})}{d\omega^{k}}\Bigg|_{\omega=\pi}=0,\, k=0,1,2,\cdots V-1 
+\end{eqnarray}
+
+If $H(z)$ has a zero of multiplicity $V$ at $z=-1$, then the
+wavelet constructed from two-channel filter banks shall have $V$
+consecutive vanishing moments, Mathematically,
+\begin{eqnarray}
+\label{eq: regular PSI(t) }
+\int_{\mathbb{R}}t^{k}\psi(t)dt=0,\,\, k=0,1\cdots V-1
+\end{eqnarray} 
+The vanishing moment constraint has been formulated in the time domain. For $k=0$, Eq. \ref{eq: VM H(w)} can be written as,
+$$H(e^{j\pi}) = 0$$
+Hence
+\begin{eqnarray}
+\label{eq: VM in time domain for k=0}
+\sum_{n=0}^{M} h(n)(-1)^n = 0
+\end{eqnarray}
+Also, for $k=1,2,3,\cdots V-1$  Eq. \ref{eq: VM H(w)} can be written in time domain as,
+\begin{eqnarray}
+\label{eq: VM in time domain for k=1 to V-1}
+\sum_{n=0}^{M}(-1)^n{n^k}h(n)=0 \,\,\,\, k = 1,2, \cdots V-1
+\end{eqnarray} 
+Eq. \ref{eq: VM in time domain for k=0} and \ref{eq: VM in time domain for k=1 to V-1} can collectively written as,
+\begin{eqnarray}
+\label{eq: VM in liner form}
+\mathbf{Ah = 0}
+\end{eqnarray}
+Where $$\mathbf{A} \in \mathbb{R}^{V \times (M+1)}$$  and the expression for computing the elements of matrix $\mathbf{A}$ is given as follows;
+\begin{eqnarray}
+\label{eq: VM Matrix}
+A_{k,l} = {l^k}(-1)^l
+\end{eqnarray}
+Where, $k \in \{0,1,2, \cdots V-1\}$ and $l \in \{0,1,2,\cdots M\}$.
+As an example, the matrix $\mathbf{A}$ for $V=3$ and $M=5$ is given as;
+\begin{eqnarray}
+\label{eq: Matrix A for V=3 and M=5}
+A = \left[
+\begin{array}{ccccccc}
+    1     & -1    & 1     & -1    & 1     & -1 \\
+    0     & -1    & 2     & -3    & 4     & -5 \\
+    0     & -1    & 4     & -9    & 16    & -25 \\
+\end{array}
+\right]
+\end{eqnarray}
+Post multiplying Eq. \ref{eq: VM in liner form} by $\mathbf{h^T}$, we get
+$$ \mathbf{Ah{h^T}=0}$$
+As $ \mathbf{X = h{h^T}}$, The above equation can be written as,
+\begin{eqnarray}
+\label{eq: VM in SDP form}
+\mathbf{AX = 0}
+\end{eqnarray}
+This completes the formulation of vanishing moment constraint.
+\section{Filter Norm}
+\label{sec: Filter Norm}
+The $l_2$ norm of the impulse response, $h(n)$ of analysis low-pass filter is desired to be unity, mathematically 
+\begin{eqnarray}
+\label{eq: l2 norm}
+ {||\mathbf{h}||}_2 = \sqrt{\sum_{n=-\infty}^{\infty}|h(n)|^2} = 1 
+\end{eqnarray}
+The above equation can be re-written as follows,
+\begin{eqnarray}
+\label{eq: l2 norm SDP form}
+\begin{aligned}
+{||\mathbf{h}||}_2 &= \mathbf{h^Th}\\ &= \trace(\mathbf{hh^T}) = 1
+\end{aligned}
+\end{eqnarray}
+The unity norm constraint has been imposed in all the three approaches. The reason for this constraint is the definition of frequency variance (Eq. \ref{eq:Frequency variance}), which has been used in the present work. Equation \ref{eq:Frequency variance} is valid definition of variance if and only if norm of $h(n)$ is unity. 
+As, $h(n) \in l_2(\mathbb{Z})$
+Also by Parseval's theorem,
+\begin{eqnarray}
+\label{eq: parsevals identity}
+\sum_{n=-\infty}^{\infty}|h(n)|^2 = \frac{1}{2\pi}\int_{-\pi}^{\pi}|H(e^{-j\omega})|^2 d\omega
+\end{eqnarray}
+Hence,
+\begin{eqnarray}
+\frac{1}{2\pi}\int_{-\pi}^{\pi}|H(e^{-j\omega})|^2 d\omega = \frac{1}{\pi}\int_{0}^{\pi}|H(e^{-j\omega})|^2 d\omega = 1
+\end{eqnarray}
+As $|H(e^{-j\omega})|^2$ is positive for all values of $\omega$ and the area under $|H(e^{-j\omega})|^2$ is unity, $|H(e^{-j\omega})|^2$ can be considered as a density function. This validates the frequency variance definition described in Eq. \ref{eq:Frequency variance}. Hence unity norm constraint is important to impose.
+
+The same constraint also validates the definition of time variance described in Eq. \ref{eq: time variance}.
+
+\section{Iterative SDP}
+\label{sec: Iterative SDP}
+The time center of the sequence $h(n)$ is given by the following equation,
+\begin{equation}
+n_0 = \sum_{n=0}^{M} n |h(n)|^2
+\end{equation} 
+The matrix, $\mathbf{P}$ associated time variance can be computed if and only if the time center, $n_0$ of $h(n)$ is known. On the other hand we want to design the optimal filter $h(n)$, which is unknown. Hence we can not compute the matrix $\mathbf{P}$ given in Eq. \ref{eq: time variance matrix}. 
+
+This problem is handled by using an iterative SDP approach. At first an arbitrary value of $ n_0 \in [0,M]$ is taken and then the solution for $h(n)$ is obtained. The  obtained $h(n)$ could have different value of the time center, (say $n_0'$). We want that the value of time center (which was set before solving the problem) to be equal to the time center of the obtained filter impulse response. To achieve the same, we again set the time center to $n_0'$ and solved the problem to find $h(n)$, the time center of the obtained $h(n)$, (say $n_0''$) would appear close to $n0'$. It has been noticed that the time center of the obtained filter tries to follow the time center which was set before solving the problem, it happens after first iteration. In the present work we have used up to three iterations. The proof of the fact is yet to derive.
+
+\section{The Different Design Problems}
+\label{sec: The Different Design Problems}
+This section explains, the three design problems that has been formulated and solved, to design the time-frequency localization optimized orthogonal wavelet filter banks. All the three design problems are solved using the iterative semidefinite programming explained in Sec. \ref{sec: Iterative SDP}. The output of the optimizaion technique used is the matrix $\mathbf{X^{opt}}$. The filter vector $\mathbf{h}$ given in Eq. \ref{eq:FilterVector}, is to be calculated from the optimal matrix $\mathbf{X^{opt}}$. To calculate $\mathbf{h}$, the auto correlation function is first calculated using the relation given below.  
+\begin{eqnarray}
+\label{eq: ACF from Xopt}
+\begin{aligned}
+	r_h(0) &= 1\\
+	r_h(k) &= \trace(\mathbf{Q_k{X^{opt}}}),\,\,\,\,k=1,2...M;
+\end{aligned}
+\end{eqnarray}
+As ACF is a symmetric sequence, the positive half from $k=0$ to $k=M$, of the ACF has been calculated, the negative half from $k=-M$ to $k=-1$ can be calculated employing the symmetry ($r_h(-k) = r_h(k)$). After computing the ACF, the filter impulse response is computed using spectral factorization. The minimum phase spectral factor is taken into the account in the present work.
+
+In all the three design problem, an objective function is minimized subjected to three or four kinds of constraints. The double shift orthogonality, the vanishing moment and the unity norm constraints(explained in \ref{sec: The Double Shift Orthogonality}, \ref{sec: VM} and \ref{sec: Filter Norm}) are common in all the three problems. 
+\subsection{The Design Problem 1}
+\label{sub: The Design Problem 1}
+In the design $1$, the CCTFV (explained in Sec. \ref{sec: CCTFV}) is taken as an objective function, which is to be minimized subjected to the three constraints. The problem to be solved is given below,
+\begin{eqnarray}
+\begin{aligned}
+\underset{\mathbf{X}} {\text{minimize}}\,\,\,\, & \trace(\mathbf{RX})\,\,\,\,  (\text{refer Eq.\ref{eq: CCTFV trace form} in Sec. \ref{sec: CCTFV}})
+\\ \text{subject to} &\\
+& \trace(\mathbf{Q_{2k}X}) = {0}, \,\,\,\, k=1,2...\frac{M-1}{2} \,\,\,(\text{refer Eq. \ref{eq: DSO in SDP form} in Sec. \ref{sec: The Double Shift Orthogonality}})
+\\&\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \mathbf{AX} = \mathbf{0} \,\,\,\, (\text{refer Eq. \ref{eq: VM in SDP form} in Sec. \ref{sec: VM}}) 
+\\&\,\,\,\,\,\,\,\,\,\,\, \trace(\mathbf{X}) = {1} \,\,\,\, (\text{refer Eq. \ref{eq: l2 norm SDP form} in Sec. \ref{sec: Filter Norm}})
+\end{aligned}
+\end{eqnarray}
+The minimization is subjected to the three constraints, namely the double shift orthogonality, the vanishing moment and the unity norm constraint. Formulation for all the three constraints, i.e. DSO, VM and the unity norm constraint, are explained in Sec. \ref{sec: The Double Shift Orthogonality}, \ref{sec: VM} and \ref{sec: Filter Norm} respectively. The problem is solved employing iterative SDP as explained in Sec. \ref{sec: Iterative SDP}. After solving the problem using iterative SDP, the optimal matrix $\mathbf{X^{opt}}$, satisfying all the constraints, is obtained. Now the filter coefficients need to be computed from the optimal matrix $\mathbf{X^{opt}}$. To find the filter coefficients, at first the autocorrelation function is computed followed by the computation of the filter coefficients using spectral factorization of ACF.
+
+\subsection{The Design Problem 2}
+\label{sub: The Design Problem 2}
+In the design 2, the time variance is the objective function, which is to be minimized, after keeping the frequency variance to a fixed value. Hence the design has one more constraint which is the fixed frequency variance. This approach can be beautifully employed if the frequency variance for the particular application is already known. The design problem can be mathematically expressed as follows,
+\begin{eqnarray}
+\begin{aligned}
+\underset{\mathbf{X}} {\text{minimize}}\,\,\,\, & \trace(\mathbf{PX})\,\,\,\,  (\text{refer Eq. \ref{eq: time variance in trace form} in Sec. \ref{sec: Time Variance}})
+\\ \text{subject to} &\\
+& \trace(\mathbf{Q_{2k}X}) = {0}, \,\,\, k=1,2...\frac{M-1}{2} \,\,\,(\text{refer Eq. \ref{eq: DSO in SDP form} in Sec. \ref{sec: The Double Shift Orthogonality}})
+\\&\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \mathbf{AX} = \mathbf{0} \,\,\,\, (\text{refer Eq. \ref{eq: VM in SDP form} in Sec. \ref{sec: VM}}) 
+\\&\,\,\,\,\,\,\,\,\,\,\, \trace(\mathbf{X}) = {1} \,\,\,\, (\text{refer Eq. \ref{eq: l2 norm SDP form} in Sec. \ref{sec: Filter Norm}})
+\\ &\,\,\,\,\,\,\, \trace(\mathbf{FX}) = f_0 \,\,\,\, (\text{refer Eq. \ref{eq: Freq. Var. in trace form} in Sec. \ref{sec: freq. var.}})
+\end{aligned}
+\end{eqnarray}
+
+\subsection{The Design Problem 3}
+\label{sub: The Design Problem 3}
+In the design three, the opposite of the design 2 is done, i.e. the frequency variance is taken as the objective function, which is to be minimized, after keeping the time variance to a fixed value. Mathematically,
+\begin{eqnarray}
+\begin{aligned}
+\underset{\mathbf{X}} {\text{minimize}}\,\,\,\, & \trace(\mathbf{FX})\,\,\,\,  (\text{refer Eq. \ref{eq: Freq. Var. in trace form} in Sec. \ref{sec: freq. var.}})
+\\ \text{subject to} &\\
+& \trace(\mathbf{Q_{2k}X}) = {0}, \,\,\, k=1,2...\frac{M-1}{2} \,\,\,(\text{refer Eq. \ref{eq: DSO in SDP form} in Sec. \ref{sec: The Double Shift Orthogonality}})
+\\&\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \mathbf{AX} = \mathbf{0} \,\,\,\, (\text{refer Eq. \ref{eq: VM in SDP form} in Sec. \ref{sec: VM}}) 
+\\&\,\,\,\,\,\,\,\,\,\,\, \trace(\mathbf{X}) = {1} \,\,\,\, (\text{refer Eq. \ref{eq: l2 norm SDP form} in Sec. \ref{sec: Filter Norm}})
+\\ &\,\,\,\,\,\,\, \trace(\mathbf{PX}) = t_0 \,\,\,\, (\text{refer Eq. \ref{eq: time variance in trace form} in Sec. \ref{sec: Time Variance}})
+\end{aligned}
+\end{eqnarray}
+This approach can be fruitful in the applications, where the required time variance is already known. 
+
+The lower bound on the time-frequency product is very well known, which is the global minimum that can be achieved with no constraints. In the present problem the value of the lower bound would be different because of the constraints imposed. The lower bound on the time-frequency uncertainty measures like time-frequency product and the CCTFV is the function of the number of constraints, which is yet to be derived. In the present design problem, the minimum value of the frequency variance that can be achieved with the constraints imposed is the function of the time variance which is fixed before solving the problem, sounds like the minimum value of $\sigma_\omega^2$ would be inversely proportional to the fixed value of time variance, but the same could be much more complicated due to the constraints imposed. The exact expression for the minimum value of $\sigma_\omega^2$ under the constraints is yet to be derived.
+
+\subsection{Constraints on Design Parameters}
+\label{sub: Constraints on Design Parameters}
+At first the length of the filter is fixed. $M$ is the order of the filter, which is an odd natural number. The length of the filter is given by $L = M +1$, which is even, as odd length orthogonal filter bank is not possible, which is a fundamental constraint for orthogonal filter banks. Moreover a linear phase orthogonal filter bank is also not possible, which is fundamentally correct, hence symmetric orthogonal filter bank is not possible.
+
+For a given filter length, a limited number of vanishing moments, $V$ can be achieved. Any arbitrary number of vanishing moments can not be achieved because of the limited degrees of freedom. The number of degrees of freedom equals the Filter Length, $L$. Filter length is the only resource to get the desired number of VMs. It has been found empirically that half of the coefficients is the expenditure to satisfy the double shift ortho-normality constraints. The remaining half coefficients can be used for minimization of the objective function and to meet the desired number of vanishing moment. It is obvious that the maximum number of vanishing moments that can be achieved is equal to $\frac{L}{2}$, whereas it is not recommended to set $V=\frac{L}{2}$ because there would be no degree of freedom left which can be used to minimize the objective function. 
+\begin{eqnarray}
+\label{eq: Constraints on VM}
+V \leq \frac{L}{2}
+\end{eqnarray}
+
+\section{Construction of Wavelets}
+\label{sec: Construction of wavelets}
+After obtaining the analysis low-pass filter $h_0(n) = h(n)$, the high-pass filter impulse response, $h_1(n)$ can be obtained using the following relation,
+\begin{eqnarray}
+h_1(n) = (-1)^n h_0(M-n)
+\end{eqnarray}
+Where $M$ is the order of the filters of the underlying filter bank. The members of the synthesis filter bank can be found using the conjugate quadrature symmetry. Wavelets from the filters of the filter banks can be constructed using the cascade algorithm given by M. Vetterli \cite{key-12}. However, all PR two-channel orthogonal filter banks cannot yield regular wavelet, the necessary and sufficient condition given by G. Strang \cite{key-45} has been used in the present work. This condition essentially states that the wavelet $\psi(t)$ and the scaling function $\phi(t)$ converge into $L_{2}(\mathbb{R})$ if and only if the absolute values of all eigenvalues of the transition matrix $T$, which is defined below, are less than 1 (except for the simple eigenvalue 1). The Transition matrix is defined as : $T=\left(\downarrow2\right)2\mathbf{HH}^{T}$, where $\left(\downarrow2\right)$ denotes downsampling-by-$2$ of rows. The $(k,l)^{th}$ element of the Toeplitz matrix $\mathbf{H}$ is given as $[\mathbf{H}]_{k,l}=h_{0}(k-l)$, $h_{0}(n)$ are the filter coefficients of the low-pass filter of the underlying orthogonal filter bank, normalized to $\sum_{n}h_{0}(n)=1$.
+
+\section{Design Flow}
+\label{Design Flow}
+This section describes the flow of the design, to get an optimal time frequency localization optimized orthogonal wavelet filter bank. At first the suitable initial values of the design parameters; $V \in \mathbb{N}$, $M \in \mathbb{N}$ and $n_0 \in [0,M]$ is fixed, after keeping the constraints on the value of the design parameters into the account (refer \ref{sub: Constraints on Design Parameters}). $\alpha \in [0,1]$ is the parameter used in the design problem 1 \ref{sub: The Design Problem 1}, whereas $f_0 \in \mathbb{R^+}$ must be fixed if solving the design problem 2 \ref{sub: The Design Problem 2} and $t_0 \in \mathbb{R^+}$ must be fixed if solving the design problem 3 \ref{sub: The Design Problem 3}.  
+
+After selecting the appropriate values of the design parameters, compute the matrices $\mathbf{P,F,A}$, $\mathbf{Q_{2k}}$ (for $k=1,2...\frac{M-1}{2}$) and $\mathbf{R}$ using equations \ref{eq: time variance matrix}, \ref{Freq. Var. matrix}, \ref{eq: VM Matrix}, \ref{eq: DSO matrix} and \ref{eq: matrix R} respectively. Now solve the underlying design problem, formulated in Sec. \ref{sec: The Different Design Problems} using the iterative SDP approach explained in \ref{sec: Iterative SDP}, employing CVX toolbox. The SDP solver may result in the status showing "Infeasible Problem", if the problem is feasible and solved, then compute the ACF using \ref{eq: ACF from Xopt} followed by the computation of minimum phase filter $h_0(n)$ using spectral factorization. Once $h_0(n)$ is obtained, impulse response of the remaining members of the filter bank (i.e. $h_1(n)$, $f_0(n)$ and $f_1(n)$) can be computed using conjugate quadrature symmetry.
+
+After obtaining the filter bank wavelets $\psi(t) \in L_2(\mathbb{R})$ and scaling function $\phi(t) \in L_2(\mathbb{R})$ needs to be constructed using cascade algorithm. To ensure the existence of the $\phi(t)$ and $\psi(t)$, the eigenvalues of the transition matrix $T$ needs to be checked as explained in Section \ref{sec: Construction of wavelets}. If the convergence condition is met, construction of wavelets and scaling function can be done using cascade algorithm and hence the valid wavelet orthogonal filter bank can be obtained. If the convergence condition is not met, the perfect reconstruction orthogonal filter bank is obtained, but the same is not a valid wavelet filter bank. The flow chart to design the optimal filter bank is shown in the Fig. \ref{fig: FC}
+\begin{figure}
+\includegraphics{FC_OFB.pdf}
+\caption{Flow chart to design the optimal filter bank}
+\label{fig: FC}
+\end{figure}

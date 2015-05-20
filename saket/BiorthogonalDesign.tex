@@ -1,0 +1,378 @@
+\chapter{The Biorthogonal Design}
+This work has been submitted for publication \cite{CSSP}, which is primarily done by the first author of the manuscript. This chapter discusses the formulation of the biorthogonal design problem in detail. The formulated problem is proved to be a convex problem and hence we obtain a global solution for the underlying filter bank.
+\section{\label{sec:problem_formulation}Problem Formulation}
+\subsection{\label{sub:objective function}Objective Function}
+Consider a zero phase, real valued FIR filter $h(n)$ of length
+$2N+1$, $N\in\mathbb{N}$. Since $h(n)$ is zero phase, i.e., $h(n)=h(-n)$,
+the DTFT $H(\omega)=\sum_{-N}^{+N}h(n)e^{-j\omega n}$ of the sequence,
+takes the form;
+\begin{equation}
+H(\omega)=h(0)+2\sum_{n=1}^{+N}h(n)\cos(\omega n)\label{eq:frequencyResponse}\end{equation}
+
+
+Defining the $(N+1)\times1$vectors;
+
+\begin{equation}
+\mathbf{a}=\left[\begin{array}{ccccc}
+h(0) & h(1) & \ldots & h(N-1) & h(N)\end{array}\right]^{T},\, N\in\mathbb{N}\label{eq:halfLengthFilterVector}\end{equation}
+
+
+\begin{equation}
+\mathbf{c}(\omega)=\left[\begin{array}{ccccc}
+1 & 2\cos(\omega) & \ldots & 2\cos(N\omega)\end{array}\right]^{T},\omega\in[0,\pi]\label{eq:CosVector}\end{equation}
+
+
+A vector \textbf{$\mathbf{f}$} is obtained from the derivative of
+the vector $\mathbf{c}$, i.e.,
+
+\[
+\mathbf{f}(\omega)=\frac{d}{d\omega}\mathbf{c(\omega)}\]
+
+
+Thus we obtain;
+
+\begin{equation}
+\mathbf{f}(\omega)=\left[\begin{array}{ccccc}
+0 & -2\sin(\omega) & -4\sin(2\omega) & \ldots & -2N\sin(N\omega)\end{array}\right]^{T}\label{eq:SineVector}\end{equation}
+
+
+The frequency response $H(\omega)$ and the derivative of frequency response
+$H^{'}(\omega)$ of the filter can be expressed as :
+
+\begin{equation}
+H\mathbf{(\omega)=a^{T}c(\omega)}\label{eq:DTFT matrix}\end{equation}
+\begin{equation}
+H\mathbf{'(\omega)=\frac{d}{d\omega}}H(\omega)\mathbf{=a^{T}\frac{d}{d\omega}c(\omega)=a^{\mathbf{T}}}\mathbf{f(\omega)}\label{eq:Derivative DTFT}\end{equation}
+
+From (\ref{eq:frequency_var}), the frequency variance of a real valued zero
+phase, sequence $h(n)$ in $l_{2}(\mathbb{Z})$ normalized to unit
+energy is given as,
+
+\begin{equation}
+\label{eq:Frequency variance Bior}
+\sigma_{\omega}^{2}=\int_{0}^{\pi}\omega^{2}|H(\omega)|^{2}\frac{d\omega}{\pi}
+\end{equation}
+
+
+On substituting (\ref{eq:DTFT matrix}) in (\ref{eq:Frequency variance Bior})
+we obtain;
+
+\begin{equation}
+\sigma_{\omega}^{2}=\mathbf{a^{T}\left\{ \int_{0}^{\pi}\omega^{2}c(\omega)c^{T}(\omega)\frac{d\omega}{\pi}\right\} a}\label{eq:Frequency Variance Matrix}\end{equation}
+
+
+Eq. (\ref{eq:Frequency Variance Matrix}) can be expressed as;
+
+\begin{equation}
+\sigma_{\omega}^{2}=\mathbf{a^{T}}\mathbf{Q}\mathbf{a}\label{eq:FrequencyVarianceMatrixForm}\end{equation}
+
+
+where,
+
+\begin{equation}
+\mathbf{Q}(\omega)=\int_{0}^{\pi}\omega^{2}\mathbf{c}(\omega)\mathbf{c}^{\mathbf{T}}(\omega)\frac{d\omega}{\pi}\label{eq:MatrixFrequencyVariance}\end{equation}
+ is a real symmetric positive-definite matrix of the order $(N+1)\times(N+1)$, due to the fact that $\sigma_{\omega}^{2}=\mathbf{a^{T}Qa>} 0$ for all $\mathbf{a}\in\mathbb{R}^{N+1}$. The $(k,l)^{th}$ element of the matrix $\mathbf{Q}$ is given as;
+\begin{equation}
+\label{eq:q1(k,l)}
+[\mathbf{Q}]_{k,l}=\begin{cases}
+\frac{\pi^{2}}{3} & k=l=0\\
+\frac{2 \pi ^{2}}{3}+\frac{1}{k^2} & k=l\; except\; k=l=0\\
+4(-1)^{k+l}\frac{(k^{2}+l^{2})}{(k^{2}-l^{2})^{2}} & k=0\; or\; l=0\; except\; k=l=0\\
+8(-1)^{k+l}\frac{(k^{2}+l^{2})}{(k^{2}-l^{2})^{2}} & otherwise
+\end{cases}
+\end{equation}
+where $0\le k,l\le N$.
+The derivation of (\ref{eq:q1(k,l)}) is given in the appendix \ref{apn: Matrix Q}.
+
+Time variance of a real valued zero phase, sequence $h(n)$ in $l_{2}(\mathbb{Z})$
+normalized to unit energy is given as,
+\begin{equation}
+\sigma_{n}^{2}=\sum_{n=-\infty}^{\infty}n^{2}|h(n)|^{2}
+\label{eq:sigmansquare}
+\end{equation}
+Using Parseval's theorem, we obtain from (\ref{eq:sigmansquare})
+\begin{equation}
+\sigma_{n}^{2}=\frac{1}{\pi}\intop_{0}^{\pi}\left|\frac{d}{d\omega}\mathbf{H}(\omega)\right|^{2}d\omega\label{eq:Time Variance}\end{equation}
+
+On substituting (\ref{eq:Derivative DTFT}) in (\ref{eq:Time Variance})
+we get;
+
+\begin{equation}
+\sigma_{n}^{2}=\mathbf{a^{T}\left\{ \mathbf{\int_{0}^{\pi}}\mathbf{f(\omega)f^{T}(\omega)\frac{d\omega}{\pi}}\right\} }\mathbf{a}
+\end{equation}
+
+
+Thus the time variance can be expressed as;
+
+\begin{equation}
+\sigma_{n}^{2}=\mathbf{a^{T}Pa}\label{eq:TimeVarianceMatrixForm}\end{equation}
+
+
+where,
+
+\begin{equation}
+\mathbf{P}(\omega)=\int_{0}^{\pi}\mathbf{f(\omega)f^{T}(\omega)\frac{d\omega}{\pi}}\label{eq:P_matrix}\end{equation}
+
+
+$\mathbf{P}$ is a real, symmetric, positive-definite matrix of the size
+$(N+1)\times(N+1)$, due to the fact that $\sigma_{n}^{2}=\mathbf{a^{T}Pa>}0$ for all
+$\mathbf{a}\in\mathbb{R}^{N+1}$.
+
+The $(k,l)^{th}$ element of $\mathbf{P}$ is given by
+\begin{eqnarray}
+\label{eq:P(k,l)}
+[\mathbf{P}]_{k,l}=&2k^{2}\delta(k-l),\; k,l\in\{0,1,\cdots,(N)\}
+\label{eq:p(k,l}
+\end{eqnarray}
+
+Thus, $\mathbf{P}$ is a diagonal matrix, with all diagonal elements
+$\in\mathbb{R}^{+}$. The derivation of (\ref{eq:P(k,l)}) is given
+in the appendix.
+
+Now we define the objective function $\phi$ to be minimized, which
+is a convex combination of the time variance and frequency variance (CCTFV)
+of the filter as;
+
+
+\begin{equation}
+\phi=\alpha\sigma_{n}^{2}+(1-\alpha)\sigma_{\omega}^{2}, \,\alpha\in[0,1]
+\label{eq:objFun}
+\end{equation}
+
+
+ $\alpha$ is a trade-off factor between time variance and frequency
+variance.
+
+Substituting (\ref {eq:FrequencyVarianceMatrixForm}) and (\ref{eq:TimeVarianceMatrixForm}) in (\ref{eq:objFun}), we obtain;
+\begin{eqnarray}
+\mathbf{\phi}&=&\alpha\mathbf{a^{T}}\mathbf{P}\mathbf{a+(1-\alpha)a^{T}}\mathbf{Q}\mathbf{a}\nonumber \\
+&=& \mathbf{a^{T}[\alpha P+(1-\alpha)Q]a}\mathbf=\mathbf{a^{T}Ra}\label{eq:ObjectiveFunction}
+\end{eqnarray}
+
+where $\mathbf{\mathbf{R}=\alpha\mathbf{P}+(1-\alpha)\mathbf{Q}} $ is a real, symmetric, positive-definite matrix of order $(N+1)\times(N+1)$ and $\mathbf{a}$ a unit norm vector of length $(N+1)\times1$
+\subsection{\label{sub:Vanishing-Moment-Condition}Vanishing Moment Condition}
+In certain applications, especially in the design of wavelet filter
+banks, we require the low-pass filters to be regular. A low-pass filter
+$H_{0}(z)$ is said to be $K-$regular if it has $K$ multiple zeros
+at $z=-1$, or equivalently, the frequency response of the filter
+satisfies;
+\[ \frac{d^{n}H_{0}(e^{j\omega})}{d\omega^{n}}\Bigg|_{\omega=\pi}=0,\, n=0,1,2,\cdots K-1 \]
+If $H_{0}(z)$ has a zero of multiplicity $K$ at $z=-1$, then the
+wavelet constructed from two-channel filter banks shall have $K$
+consecutive vanishing moments, i.e., $\intop_{\mathbb{R}}t^{n}\psi(t)dt=0,\,\, n=0,1\cdots K-1$.
+Since we also want to design wavelets from filter banks designed by
+us we will impose certain additional conditions on PR filter banks
+to enable them to be valid candidates for wavelet filter banks. The
+design of wavelet filter banks is equivalent to the design of PR filter
+banks, except that the former must satisfy vanishing moment or regularity
+constraints in order to ensure construction of regular wavelets and
+scaling functions. In case of two-channel PR filter banks the number of
+vanishing moment constraints is equal to the number of zeros imposed
+at $z=-1$, in the transfer function of the low-pass filters. In this
+paper, $K$-regular low-pass filters are said to have $K$ vanishing moments
+(VMs). In our design, VM constraints are imposed in the time domain matrix
+form $\mathbf{Ab=0}$ as explained below.
+
+Let us consider, that we impose $2M_{A}$ zeros at $z=-1$ on the
+low-pass filter $H_{0}(z)$ having $2P+1$ non zero taps. Then the
+impulse response of the filter $h_{0}(n)$ satisfies the equality;
+\begin{equation}
+\sum_{n=-P}^{P}n^{K}(-1)^{n}h_{0}(n)=0,\mbox{for }K=0,1,2,\ldots2M_{A}-1\label{eq:vanishing moment}
+\end{equation}
+Note, in case of odd length filters, zeros at $z=-1$ always occur in
+pairs.
+
+Since $h_{0}(n)$ is a zero phase filter the condition (\ref{eq:vanishing moment})
+boils down to:
+\begin{equation}
+\label{eq:VM}
+\begin{cases}
+h_{0}(0)+2\sum_{n=1}^{P}(-1)^{n}h_{0}(n)=0 \\
+2\sum_{n=1}^{P}n^{2K}(-1)^{n}h_{0}(n)=0\mbox{, }K=1,2,\ldots M_{A}-1
+\end{cases}
+\end{equation}
+The conditions (\ref{eq:VM}) can be expressed
+in the form $\mathbf{Ab}=\mathbf{0}$. Where the vector $ \mathbf {b} =[h_{0}(0)\, h_{0}(1)\cdots\, h_{0}(P-1)\,h_{0}(P)]^{T}\in\mathbb{R}^{(P+1)}  $
+ contains filter coefficients  $h_{0}(n)$,
+for $0\leq n\leq P$ and $ \mathbf{A}\in\mathbb{R}^{(M_{A})\times(P+1)}  $. The $(k,l)^{th}$ element of matrix $\mathbf{A}$ is obtained as;
+\begin{equation}
+\label{eq:MatrixA}
+a_{k,l}=\begin{cases}
+1 & k=l=0\\
+2(l)^{2k}(-1)^{l} & l\in\{0,1,2,\cdots, P\},\;k\in\{0,1,2,\cdots, M_{A}-1\}\backslash\{k=l=0\}
+\end{cases}
+\end{equation}
+As an example, the constraint corresponding to  $M_{A}=3$, and $P=6$ to impose a zero of order six at $z=-1$ on the filter $ h_{0}(n) $ of the length $13$,  is given in (\ref{eq:ex2}) as;
+\begin{equation}
+\label{eq:ex2}
+\left[\begin{array}{ccccccc}
+1 & -2 & 2 & -2 & 2 & -2 & 2\\
+0 & -2 & 8 & -18 & 32 & -50 & 72\\
+0 & -2 & 32 & -162 & 512 & -1250 & 2592
+\end{array}\right]\left[\begin{array}{c}
+h_{0}(0)\\
+h_{0}(1)\\
+h_{0}(2)\\
+h_{0}(3)\\
+h_{0}(4)\\
+h_{0}(5)\\
+h_{0}(6)
+\end{array}\right]=\mathbf{0}
+\end{equation}
+
+\subsection{\label{sub:perfect-reconstruction-condition}Formulation of Perfect Reconstruction Condition}
+Let $h_{0}(n)$ and $f_{0}(n)$ denote the impulse response of the
+real symmetric filters $H_{0}(z)$ and $F_{0}(z)$, respectively having
+lengths $L_{A}=2P+1$, $L_{S}=2Q+1$, respectively.
+
+The half-band condition (\ref{eq:halfband cond}) on the impulse response
+of the product filter can be expressed in the time domain as;
+\begin{eqnarray}
+p(2n) &=& f_{0}(0)h_{0}(2n)+\sum_{k=1}^{Q}{\displaystyle f_{0}(k)\{h_{0}(2n-k)+h_{0}(2n+k)\}} \nonumber \\
+&=&0 \; \mbox{for }1\leq n\leq\left(\frac{P+Q-1}{2}\right)\label{eq:halfband cond time}
+\end{eqnarray}
+where $p(n)$ is the impulse response of product filter $P(z)$ with
+normalization $p(0)=1$. We express the condition (\ref{eq:halfband cond time})
+in the form $\mathbf{B}\mathbf{a}=\mathbf{0}$, in order to be able
+to assimilate it in the eigenfilter design. The $\mathbf{a}\in\mathbb{R}^{(Q+1)}$ containing the filter coefficients
+for $f_{0}(n)$, for $0\leq n\leq Q$ and $ \mathbf{B\in\mathbb{R}^{\left(\frac{P+Q-1}{2}\right)\times(Q+1)}} $. The $(k,l)^{th}$ element of
+matrix $\mathbf{B}$ is obtained as;
+
+\begin{equation}
+\label{eq:MatrixB}
+[\mathbf{B}]_{k,l}=\begin{cases}
+h_{0}[2k+2] & l=0 \\
+h_{0}[2(k+1)-l]+h_{0}[2(k+1)+l] & 1\le l\le Q
+\end{cases}
+\end{equation}\\
+where $0\leq k<\left\{\left(\frac{P+Q-1}{2}\right)-1 \right\}$.\\
+Note here $h_{0}(n)=h_{0}(-n), 0 \le n \le P$ and $h_{0}(n)=0, |n|>P$.
+
+As an example, for $P=4$ and $Q=5$ the PR constraint $\mathbf{B}\mathbf{a}=\mathbf{0}$,
+is given in (\ref{eq:PRmatrix}) as;
+\begin{equation}
+\label{eq:PRmatrix}
+\left[\begin{array}{cccccc}
+h(2) & h(1)+h(3) & h(0)+h(4) & h(1) & h(2) & h(3)\\
+h(4) & h(3) & h(2) & h(1) & h(0) & h(1)\\
+0 & 0 & h(4) & h(3) & h(2) & h(1)\\
+0 & 0 & 0 & 0 & h(4) & h(3)
+\end{array}\right]\left[\begin{array}{c}
+f_{0}(0)\\
+f_{0}(1)\\
+f_{0}(2)\\
+f_{0}(3)\\
+f_{0}(4)\\
+f_{0}(5)
+\end{array}\right]=\mathbf{0}
+\end{equation}
+Note in the above formulation the condition $p(0)=1$ is not included explicitly.
+The condition is absorbed in normalizing the energy of the filter.
+
+\subsection{\label{sub:Imposing-Linear-constraints}Imposing Linear Constraints}
+
+Linear constraints of the form $\mathbf{C}\mathbf{a}=\mathbf{d}$
+can be incorporated into eigenfilter design of FIR filters, where $\mathbf{a}$
+contains the filter coefficients. $\mathbf{C}$ is a rectangular matrix
+having constant elements and $\mathbf{d}$ is an arbitrary vector
+having constant elements. To impose the linear constraint \begin{equation}
+\mathbf{C}\mathbf{a}=\mathbf{0}\label{eq:1}\end{equation}
+a method, given by Pei et al. \cite{key-44}, is used in this
+paper.
+
+From equation (\ref{eq:1}), we infer that $\mathbf{a}$ is in the
+null space of $\mathbf{C,}$ i.e., $\mathbf{a}\in Null(A).$ Therefore
+$\mathbf{a}$ can be expressed as \cite{key-31};
+\begin{equation}
+\mathbf{a}=\mathbf{U}\mathbf{b}
+\end{equation}
+
+Where $\mathbf{U}$ is a rectangular unitary matrix, i.e., $ \mathbf{UU^{T}}=\mathbf{I} $
+
+
+The Columns of $\mathbf{U}$ form an orthogonal basis for the null
+space of $\mathbf{C}$ and $\mathbf{b}$ is an arbitrary vector. The
+objective function $\phi$ to be minimized can be expressed as,
+\begin{equation}
+\phi=\mathbf{a}^{T}\mathbf{R}\mathbf{a=\mathbf{b}^{T}\mathbf{U^{T}RU}\mathbf{b}=\mathbf{b^{T}S}\mathbf{b}}
+\end{equation}
+
+Where $\mathbf{S=U^{T}RU}$ is a real symmetrical matrix of the
+order $(N+1)\times(N+1)$. The optimal $\mathbf{b}$ is obtained as
+the eigenvector of the matrix $\mathbf{S}$, corresponding to its
+minimum eigenvalue. Having obtained the optimal $\mathbf{b},$ the optimal
+$\mathbf{a}$ can be obtained using, $\mathbf{a}=\mathbf{U}\mathbf{b}$.
+\section{\label{sub:design-methodology}Design Methodology}
+The complementary filter design technique is used to design linear phase biorthogonal filter banks. At first an optimal low pass filter is designed, then the complementary synthesis filter is designed by imposing the perfect reconstruction condition. A condition given by M.Vetterli \cite{key-12} states that the analysis filter $H_{0}(z)$ has a complementary-synthesis filter $F_{0}(z)$ if and only if its two-polyphase components are coprime. The validity is checked explicitly, using the proposition \cite{key-12} which states that a Filter $H_{0}(z)$ has a complementary filter, if and
+only if, it has no pair of zeros at $z=\gamma$ and $z=-\gamma$. The absence of zero pairs of the form $(\gamma,-\gamma)$ ensures
+that polyphase components of $H_{0}(z)$ are coprime \cite{key-12}. Having obtained the valid analysis low-pass filter $H_{0}(z)$, we
+proceed to design complementary-synthesis low-pass filter $F_{0}(z)$ which satisfies the PR and VM conditions. High-pass filters $F_{1}(z)$ and $H_{1}(z)$ are obtained by quadrature conjugation of low-pass filters $H_{0}(z)$ and $F_{0}(z)$, respectively. 	
+\subsection{Design of Analysis Filter}
+The design of the analysis filter is a constrained optimization (minimization)
+problem, which can be formulated as:
+\begin{equation*}
+\begin{aligned}
+& \underset{\mathbf{a}}{\text{minimize0}}
+& & \mathbf{a^T}\mathbf{Ra} \\
+& \text{subject to}
+& & \mathbf{A{a}}=\mathbf{0} \\
+&&& \mathbf{{a}^{T}}\mathbf{{a}}=1
+\end{aligned}
+\end{equation*}
+where $\mathbf{R}$ is a real, symmetric positive-definite matrix
+associated to the objective function CCTFV (\ref{eq:ObjectiveFunction}),
+\textbf{$\mathbf{A}$ }is the matrix corresponding to the vanishing moment conditions as described in subsection \ref{sub:Vanishing-Moment-Condition} and $\mathbf{a}$ is a real
+ valued vector associated with the filter coefficients to be designed. Analysis filter can be designed as follows:
+\begin{enumerate}
+\item First fix the number of vanishing moments, $2M_{A}$ and the value of $\alpha$ for the analysis filter.
+\item Now choose appropriate value of $P$ by ensuring the constraints explained in section \ref{sub:Constraint-on-the length of filter}.
+\item Calculate the matrix $\mathbf{A}$ from \ref{eq:MatrixA} and matrix $\mathbf{R}$ from \ref{eq:ObjectiveFunction} for the given $P$ and $M_A$.
+\item Now calulate matrix $\mathbf{U}$, columns of which forms an orthonormal basis for nullspace of $\mathbf{A}$.
+\item Calculate matrix $\mathbf{S}$ using $\mathbf{S=U^{T}RU}$.
+\item Find vector $\mathbf{b_{h_0}}$, as the eigenvector corresponding to the minimum eigenvalue of matrix $\mathbf{S}$. $\mathbf{b_{h_0}}$ minimizes $\mathbf{{b_{h_0}}^{T}S{b_{h_0}}}$.
+\item Find $\mathbf{a = U{b_{h0}}}$, which is the solution of the formulated problem. $\mathbf{a}$ is the causal part of the required zero phase filter of length $P+1$.
+\item  The remaining $P$ coefficient can be obtained by symmetry. After obtaining the even symmetric sequence, the sequence is normalized by dividing it by its norm to get ${h_0(n)}$.
+\item ${h_0(n)}$ is the required lowpass filter of length $2P+1$.
+\item Complementary filter can be designed if and only if $H_{0}(z)$ does not have any pair of zeros at $z=\gamma$ and $z=-\gamma,$ which ensures that two-polyphase components of $H_{0}(z)$ are relatively coprime and therefore it is a valid filter (for PR filter bank) \cite{key-12}. Infact, it is observed that filters designed by taking the cost function (\ref{eq:ObjectiveFunction}) are {}``almost always'' valid for all values of time-frequency trade-off factor $\alpha$.
+\end{enumerate}
+\subsection{Design of Synthesis Filter}
+
+The design of the complementary-synthesis filter is also a constrained minimization
+problem, which can be formulated as:
+\begin{equation*}
+\begin{aligned}
+& \underset{\mathbf{s}}{\text{minimize}}
+& & \mathbf{s}^{T}\mathbf{Rs} \\
+& \text{subject to}
+& & \mathbf{As}=\mathbf{0} \\
+&&& \mathbf{Bs}=\mathbf{0} \\
+&&& \mathbf{s}^{T}\mathbf{s}=1\\
+\end{aligned}
+\end{equation*}
+where $\mathbf{R}$ is a real, symmetric positive-definite matrix
+associated to the objective function CCTFV as described in subsection \ref{sub:objective function},
+\textbf{$\mathbf{A}$ }is the matrix corresponding to linear constraints
+for vanishing moment conditions \ref{sub:Vanishing-Moment-Condition}, $\mathbf{B}$ is the matrix associated with PR condition \ref{sub:perfect-reconstruction-condition} and
+$\mathbf{s}$ contains $Q+1$ coefficients corresponding to the synthesis filter to be optimized.
+
+For the given analysis filter, to design complementary-synthesis filter of length $2Q+1,$ with $2M_{S}$ vanishing moments and time-frequency trade-off factor $\alpha$, following steps are taken:
+\begin{enumerate}
+\item Compute matrix $\mathbf{B}$ from \ref{eq:MatrixB} and $\mathbf{A}$ from \ref{eq:MatrixA} corresponding to the PR and VM's constraints respectively.
+\item  Obtain matrix $\mathbf{C}$ by augmenting matrix $\mathbf{B}$ and matrix $\mathbf{A}$, such
+that: \[
+\mathbf{C}=\left[\mathbf{\frac{B}{A}}\right]\]
+\item Obtain matrix $\mathbf{R}$ from \ref{eq:ObjectiveFunction} associated with the cost function.
+\item Now obtain matrix $\mathbf{U}$, columns of which are the orthonormal basis of nullspace of matrix $\mathbf{C}$.
+\item Find matrix $\mathbf{S=U^{T}RU}$.
+\item Now compute $\mathbf{b}$, which is the eigenvector corresponding to the minimum eigen value of matrix $\mathbf{S}$. Vector $\mathbf{b}$ minimizes $\mathbf{b^{T}Sb}$.
+\item Obtain $\mathbf{s=Ub}$. Vector $\mathbf{s}$ contains the causal part of the required zero phase synthesis filter.
+\item The vector $\mathbf{s}$ contains $Q+1$ coefficients. The remaining $Q$ coefficients can be obtained by symmetry. After obtaining the even symmetric sequence, the sequence is normalized by dividing it by its norm to get the required synthesis filter ${f_0(n)}$.
+\item After obtaining the analysis low-pass filter $h_0(n)$ and synthesis low-pass filter $f_0(n)$, the analysis high-pass filter $h_1(n)$ and synthesis high-pass filter $f_1(n)$ are obtained as $$ h_1(n) = (-1)^n f_0(n)$$ $$f_1(n) = (-1)^n h_0(n) $$
+
+\end{enumerate}
+\subsection{\label{sub:Constraint-on-the length of filter}Constraints on Filter Length}
+Length of  the filter in the proposed design can not be taken arbitrarily. Filter length must be taken after taking care of the PR and VM's constraints. If filter is less than a particular number, the devised method will result in {} "no solution" condition.
+
+For the analysis filter, only vanishing moment constraints are imposed. Recall the linear form $\mathbf{Ab=0}$, where $\mathbf{A}\in\mathbb{R}^{M_{A}\times(P+1)}$ and $ \mathbf{b}\in\mathbb{R}^{(P+1)}$ explained in subsection \ref{sub:Vanishing-Moment-Condition}. It is obvious that $M_A$ number of coefficients are needed to achieve the required number of vanishing moments. Also atleast one coefficient is required to minimize the objective function and we have $P+1$ number of coefficients. It follows that $P+1 \geq M_A + 1$  hence $$P \geq M_A$$
+
+ For synthesis filter, both vanishing moment and perfect reconstruction constraints are imposed by augmenting two matrices such that: \[\mathbf{C}=\left[\mathbf{\frac{B}{A}}\right]\] where $\mathbf{B} \in {\mathbb{R}}^{\left(\frac{P+Q-1}{2}\right)\times(Q+1)}$ is associated with PR constraints and $\mathbf{A}\in\mathbb{R}^{{M_{S}}\times(Q+1)}$ is associated with VM constraints. Hence $\mathbf{C}\in\mathbb{R}^{\left\{\left(\frac{P+Q-1}{2}\right)+M_{S}\right\}\times(Q+1)}$. Hence total number of constraints for synthesis filter are $$\left(\frac{P+Q-1}{2}\right)+M_{S}$$ In order to have solution $Q$ must satisfy the following inequality $$ Q \geq \left\{\left(\frac{P+Q-1}{2}\right)+M_{S}\right\} $$ $$ \Rightarrow Q \geq(P-1+2M_S)$$
