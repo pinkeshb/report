@@ -1,13 +1,10 @@
 
 
-\chapter{Projection methods for radiosity problem}
-Radiosity problem was casted to Integral equation but it is very difficult to solve the integral equation analytically due to geometry of scene. We can use projection methods to find approximate solution. We first start with projecting the unknown radiosity function and integrate(operate kernel) on the projected function.\\
+\chapter{\label{ch:projection}Projection methods for radiosity problem}
+In chapter \ref{ch:problemformulatio} we saw that problem of radiosity was casted to integral equation but it is very difficult to solve the integral equation analytically due to geometry of scene. We can use projection methods to find approximate solution. We first start with projecting the unknown radiosity function and integrate(operate kernel) on the projected function. After that we cast radiosity problem with system of linear equations. \\
 
-{\bf projecting radiosity function}
-\section{Projecting radiosity function}
-Since we are working with linear function spaces and operators
-defined on these spaces we must first consider bases. In general
-we will be dealing with functions of finite energy, i.e. functions
+\section{Projecting Radiosity Function}
+We are working with linear operator (integral operator) defined on space of unknown function $B(x)$ we must first consider bases for this spaces. In general we will be dealing with functions of finite energy, i.e. functions
 in the linear vector space $L^2$ . There are many possible bases for
 this space. Consider some primal basis $\{N_i \}_{i{\bf belongs to}Z}$ . This set must contain infinitely many functions since $L^2$ is infinite dimensional.
 By definition, every function $B{\bf belongs to}L^2$ can be written as a lin-

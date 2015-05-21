@@ -1,4 +1,6 @@
 \chapter{\label{ch:wavelets}Wavelets}
+In previous chapter, chapter \ref{ch:projection}, we discussed numerical solution of radiosity integers equation using projectoin method. Basically we select space and basis for that space for projection. In this chapter we discuss wavelet basis, which were used for the projection, associated properties like vanishing moments. In next chapter, chapter \ref{ch:waveletprojection}, we discuss the advantage of wavelet basis over other basis and comparison of different wavelets for solving problem. First the basics of wavelet and Haar wavelet is discussed. Then a class of wavelet called multi-wavelets and Legendre multi-wavelets is discussed.
+\section{Haar Wavelet}
 Wavelet constitute a family of functions constructed from dilation and translation of a single function called the mother wavelet. When the dilation parameter a and the translation parameter b vary continuously, we have the following family of continuous wavelets as [Boggess]\\
 
 $\psi_{a,b}(x) = {|a|}^{-1} \psi(\frac {t-b}{a})
@@ -7,9 +9,14 @@ $\\
 
 If we restrict the parameters $a$ and $b$ to the discrete values as $a = a_0 ^-k, \\b = n b_0 a_0^{-k}$, where $a>1,b>0$ and $n$, and $k$ are positive integers, we have the following of discrete wavelets:\\
 
+\underline{haar wavelt}
+
 $\psi_n,k(x) = |a|^\frac{k}{2} \psi(a_0^k t - nb_0)$ ,\\
  which from a wavelet basis for $L^2(R)$. In particular, when $a_0 = 2$ and $b_0 = 1$ then $\psi_n,k (x)$ forms an orthonormal basis [Boggess].
  
+
+ \section{Legendre Multi-wavelets}
+ Multi-wavelets are class of wavelet 
  {\bf describe all the wavelet i am going to use like haar, llmw, qlmw, CAS 
  plots twoscale elation and vanishing moments and basis set}
  
