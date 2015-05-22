@@ -1,11 +1,12 @@
 
-\chapter{\label{ch:problemformulatio}Radiosity Problem Formulation and Integral Equation}
+\chapter{\label{ch:problemformulatio}Problem Formulation and Radiosity Integral Equation}
 
-In this section we formulate radiosity problem and derive corresponding radiosity integral equation. After defining the problem, possible solution methods, analytical and numerical, has been discussed at the end of the section.
+In this section we formulate radiosity problem and derive corresponding radiosity integral equation. After defining the problem, possible solution methods, analytical and numerical, has been discussed at the end of the Chapter.
 
 
-\section{Problem Definition}
-The radiosity problem is special case of more general problem of global illumination. Radiosity is global illumination problem with scene composed of only lambertian (diffused) surfaces. Labertian surface are surface with lambertian reflectance i.e. apparent brightness of a point on surface is equal form any view point above surface. This is opposite to specular surface which are shiny surface. With this assumption of lambertian surfaces we now define the problem mathematically.
+\section{\label{ch:problemformulation}Problem Definition}
+The radiosity problem is special case of more general problem of global illumination. Radiosity is global illumination problem with scene composed of only lambertian (diffused) surfaces. Labertian surface are surface with lambertian reflectance i.e. apparent brightness of a point on the surface is equal from any view point above the surface. This is opposite to specular surface which are shiny surface. With this assumption of lambertian surfaces we now define the problem mathematically.
+
 Radiosity $B(x_1,y_1)$ at point is power per unit area that leaves a point $(x_1,y_1)$ on a surface. The problem is to find the radiosity function  $B(x_1,y_1)$ over domain of all the surfaces in the scene given a following input,
 \begin{itemize}
 \item $E(x_1,y_1)$, radiosity of emitters(light source) of scene
@@ -15,12 +16,12 @@ Radiosity $B(x_1,y_1)$ at point is power per unit area that leaves a point $(x_1
 \end{itemize}
 Where, $(x_2,y_2)$,$(x_1,y_1)  \in  M^2$, two dimensional domain of all the surfaces in the  three dimensional scene $\in \mathbb{R}^3$.
 
-$E(x_1,y_1)$ represents radiosity emitted by point $(x_1,y_1)$. Its non-zero for light a source and zero for other surfaces. $K(x_1,y_1,x_2,y_2)$ is calculated from geometry of scene.The $K(x_1,y_1,x_2,y_2)$ is calculated from geometric location of the surfaces. For lambertian surface only one quantity,  $p(x_1,y_1)$, is required to describe reflectance.
+$E(x_1,y_1)$ represents radiosity emitted by point $(x_1,y_1)$. It is non-zero for a light source and zero for other surfaces. $K(x_1,y_1,x_2,y_2)$ is calculated from geometry of the scene. The $K(x_1,y_1,x_2,y_2)$ is calculated from geometric location of the surfaces. For lambertian surface only one quantity,  $p(x_1,y_1)$, is required to describe reflectance.
 
-For simplifying further discussion, we represent point on surface by x and y. and can be expanded as shown in the eq. (\ref{eq:3dkernel}) which consist of cosine of angle made by local surface normals with a vector connecting two points, the distance  $r_{12}^{-2}$ between the two points (see Figure 1) and the visibility function which takes values from \{0,1\}. The constant factor $\pi$ accounts for normalization of the integration. 
+For simplifying further discussion, we represent a point on surface by x. Kernel $K(x,y)$ can be expanded as shown in the eq. (\ref{eq:3dkernel}) which consist of cosine of angle made by local surface normals with a vector connecting two points, the distance  $r_{12}^{2}$ between the two points (see Figure \ref{xytheta}) and the visibility function which takes values from \{0,1\}, $0$ whene light ray can not travell from $y$ to $x$ due to an oclusion. The constant factor $\pi$ accounts for normalization of the integration. 
 
 \begin{equation} \label{eq:3dkernel}
-K(x,y) = \pi^{-1} \cos \theta_1 \cos \theta_2 r_{12}^{-2} V(x,y) \\ 
+K(x,y) =  \frac{\cos \theta_x \cos \theta_y} {\pi r_{12}^{2}} V(x,y) \\ 
 \end{equation}
 
 
@@ -32,16 +33,16 @@ K(x,y) = \pi^{-1} \cos \theta_1 \cos \theta_2 r_{12}^{-2} V(x,y) \\
 \end{figure}
 
 \section {Radiosity Integral Equation}
-Radiosity is governed by an non-homogeneous Fredholm integral equation of second kind (shown in Equation \ref{eq:NHFIEST}) which arises form more general problem of heat transfer known as rendering equation [Kajia](see Appendix \ref{apen:derivationdegenerate}). In Equation \ref{eq:NHFIEST}, we solve for unknown function $b(x)$. 
+Radiosity is governed by an non-homogeneous Fredholm integral equation of second kind (shown in Equation \ref{eq:NHFIEST}) which arises form more general problem of heat transfer known as rendering equation \cite{Kajiya} (see Appendix \ref{apen:derivationdegenerate}). In Equation \ref{eq:NHFIEST}, we solve integral equation for unknown function $\phi(x)$. 
 \begin{equation} \label{eq:NHFIEST}
-b(x)=f(x)+\lambda\int_{M^2} K(x,y)B(y)dy\quad x,y \in M^2
+\phi(x)=f(x)+\lambda\int_{M^2} K(x,y)\phi(y)dy\quad x,y \in M^2
 \end{equation}
-In radosity problem can be casted to integral equation shown in eq. (\ref{eq:genrie}). One way to relate equation with radiosity problem is that the radiosity $B(x)$ at point $(x)$  is sum (integral) of emitted radiosity and reflected radiosity which is received from all the points $(x_2,y_2) \in M^2$,  domain of all the surfaces in the scene.\\
+In radosity, problem can be casted to integral equation shown in eq. (\ref{eq:genrie}). One way to relate equation with radiosity problem is that the radiosity $B(x)$ at point $(x)$  is sum of emitted radiosity $E(x)$ and reflected radiosity $p(x)K(x,y)B(y)$ which is received from all (integral) the points $y \in M^2$,  domain of all the surfaces in the scene.\\
 
 \begin{equation} \label{eq:genrie}
-B(x)=E(x)+\int_{M^2}K(x,y)B(y)dy
+B(x)=E(x)+p(x)\int_{M^2}K(x,y)B(y)dy
 \end{equation}
-In eq. (\ref{eq:genrie}) the integral is over all the points in domain of all  the surfaces $M^2$ in the scene. The kernel of integral equation is $p(x)K(x,y)$, which is calculated from geometry of input scene. 
+In eq. (\ref{eq:genrie}) the integral is over all the points in domain of all  the surfaces $M^2$ in the scene. The kernel of integral equation is $p(x)K(x,y)$, which is calculated from geometry of input scene. Thus we can solve radiosity integral equation to solve radiosity problem.
 
 
 % The parameters c and d takes value depending on  the scene. For 2D scenes, a scene consisting of lines instead of surfaces, d takes the value 1 and c takes the value 1/2 and the domain of the points is 1D. In the case of 3D scenes d takes the value 2 and c takes the value 1/$\pi$. From this point onwards we will refer to points by x and depending on the context (1D or  2D) it will be defined. The eq. (\ref{eq:3drie}) can be written as shown in eq. (\ref{eq:genrie})\\\\
@@ -50,5 +51,5 @@ In eq. (\ref{eq:genrie}) the integral is over all the points in domain of all  t
 % B(x)=E(x)+P(x)\int K(x,y)B(y)dy\\\\
 % \end{equation}
 \section{Analytical and Numerical Solution}
-In literature lot of methods where developed to solve the non-homogeneous Fredholm integral of second kind \cite{iesurvey}\cite{ie}. In particular, if the kernel K is degenerate, one can find exact solution of the radiosity integral equation analytically\cite{ie}. But for even simple 2D scene the kernel is non-degenerate. If analytical solution is not possible then one can solve the problem by approximation methods like Collocation Method, Galerkin Method etc. {\bf But the size of the radiosity problem makes it difficult to use this methods}. We therefor use finite element methods(FEM) to compute approximate solution. We write unknown radiosity function as linear combination of basis function. Thus the problem get casted to system of linear equations which can be solved and approximate solution can be computed. In other words we solve the problem in finite dimensional space(domain). This method is also known as projection methods. More on this is discussed in next section.
+In literature lot of methods where developed to solve the non-homogeneous Fredholm integral of second kind \cite{iesurvey} \cite{ie}. In particular, if the kernel K is degenerate, one can find exact solution of the radiosity integral equation analytically \cite{ie}. But for even simple 2D  scene (flatland, see Chapetr \ref{ch:waveletprojection}), the kernel is non-degenerate. If analytical solution is not possible then one can solve the problem by approximation methods like Collocation Method, Galerkin Method \cite{iesurvey} \cite{ie}. We therefore use finite element methods(FEM) to compute approximate solution. We write unknown radiosity function as linear combination of basis function. Thus the problem get casted to system of linear equations which can be solved and approximate solution can be computed. In other words we solve the problem in finite dimensional function space instead of $L^2$ space, space of finite energy function. This method is also known as projection methods, more on these is discussed in next section.
 
