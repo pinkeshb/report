@@ -3,104 +3,65 @@
 \appendixpage
 \chapter{}
 \pagestyle{empty}
-\section{\label{apen:derivationdegenerate}Fredholm IE and Derivation of Analytical Solution for Degenerate Kernel}
+\section{\label{apen:derivationdegenerate}Fredholm IE of Second Kind and Analytical Solution for Degenerate Kernel}
 \label{appendix-1}
+Here we discuss derivation of analytical solution of non-homogeneous Fredholm integral equation of second kind.
 
-%\subsection{\label{apn: Matrix F}Frequency Variance Measure for Orthogonal Design}
-Equation \ref{Freq. Var. matrix elements} has been derived in this section. The DTFT of the $h(n) \in l^2(\mathbb{Z})$  
+
+The Fredholm integral equation of second kind
 
 \begin{equation}
-H(\omega)=\sum^{M}_{n=0}h(n) e^{-j\omega n}
+\phi(x)=f(x)+\lambda\int_a^b K(x,y)\phi(y)dy
 \end{equation}
-Recall,
-\begin{equation*}
-h(n)=0 ,\, \forall n \in \{ (n < 0) \cup (n > M)\}
-\end{equation*}
-The DTFT of $h(n)$ can be rewritten in matrix form as:
+with a {\em degenerate kernel} 
 \begin{equation}
-H(\omega)=\mathbf{h}^{T}\mathbf{e}(\omega)
+ K(x,y) = \sum\limits_{i=1}^na_i(x)b_i(y)
+\end{equation}
+defined over domain of $x,y \in [a,b]$ can be expanded, by substituting kernel into integral equation as
+\begin{equation}
+ \phi(x)=f(x)+\lambda\int_a^b \sum\limits_{i=1}^na_i(x)b_i(y)\phi(y)dy
+\end{equation}
+above equation can be rewritten, by changing the order of integration ans summation, in the form
+\begin{equation}\label{eq:orderchange}
+ \phi(x)=f(x)+\lambda \sum\limits_{i=1}^na_i(x)\int_a^b b_i(y)\phi(y)dy
+\end{equation}
+let unknown constants $ c_i, i=0, 1, ..., n $ be defined as
+\begin{equation}
+ c_i=\int_a^b b_i(y)\phi(y)dy
+\end{equation}
+thus Equation \ref{eq:orderchange}, after substituting $c_i, i=0, 1, ..., n$, becomes
+\begin{equation}\label{eq:simplephi}
+ \phi(x)=f(x)+\lambda \sum\limits_{i=1}^nc_ia_i(x) 
+\end{equation}
+Now, problem reduce to the finding unknowns $ c_i, i=0, 1, ..., n $. We substitute Equation \ref{eq:simplephi} into Equation \ref{eq:orderchange} we get,
+\begin{equation}
+f(x)+\lambda \sum\limits_{i=1}^nc_ia_i(x) =f(x)+\lambda \sum\limits_{i=1}^na_i(x)\int_a^b b_i(y)\quad[f(y)+\lambda \sum\limits_{i=1}^na_i(y) c_idy] \quad
+\end{equation}
+\begin{equation}
+\sum\limits_{i=1}^nc_ia_i(x) -\sum\limits_{i=1}^na_i(x)\int_a^b b_i(y)(f(y)+\lambda \sum\limits_{i=1}^na_i(y) c_idy)=0
+\end{equation}
+\begin{equation}
+\sum\limits_{i=1}^na_i(x)\quad( c_i-\int_a^b b_i(y)\quad[f(y)+\lambda \sum\limits_{i=1}^na_i(y) c_idy])=0
+\end{equation}
+if chosen $a_i(x), i=0, 1, ..., n $ is linearly independent, then above equation is true if and only if 
+\begin{equation}\label{eq:linearsystem}
+c_i-\int_a^b b_i(y)\quad[f(y)+\lambda \sum\limits_{i=1}^na_i(y) c_idy]=0,\quad i=0, 1, ..., n 
+\end{equation}
+let 
+\begin{equation}
+f_i=\int_a^b b_i(y)f(y),\quad i=0, 1, ..., n 
+\end{equation}
+and 
+\begin{equation}
+a_{ij}=\int_a^b b_i(y)a_j(y) dy=0,\quad i,j \in \{0, 1, ..., n\} 
+\end{equation}
+Now changing summation and integration order, Equation \ref{eq:linearsystem} is rewritten as
+\begin{equation}\label{eq:linearsystem}
+c_i=f_i+\lambda \sum\limits_{i=1}^na_{ij},\quad i=0, 1, ..., n 
+\end{equation}
+Finally we get system of linear equation of order n and n unknowns $c_i$. Substituting $c_i$ into Equation \ref{eq:simplephi} we get the solution of the Integral Equation as 
+ \begin{equation}\label{eq:simplephi}
+ \phi(x)=f(x)+\lambda \sum\limits_{i=1}^nc_ia_i(x) 
 \end{equation}
 
-where,
-
-\begin{equation}
-\mathbf{e}(\omega)=[e^{-j\omega}\,\,\,\ e^{-j\omega 1}\,\,\,\ e^{-j\omega 2}\,\,\,\,\ldots\,\,\,\ e^{-j\omega M}]^T
-\end{equation}
-
-The frequency variance $\sigma_{\omega}^{2}$ is given by
-
-\begin{eqnarray}
-\sigma_{\omega}^{2}&=&\frac{1}{\pi} \int_{0}^{\pi}\omega^{2} |H(\omega)|d\omega\\
-&=&\frac{1}{\pi} \int_{0}^{\pi}\omega^{2} \{\mathbf{h}^{T}\mathbf{e}(\omega)\mathbf{e}^{H}(\omega)\mathbf{h}\}d\omega\\
-&=&\mathbf{h}^{T}\{\int_{0}^{\pi}\omega^{2}\mathbf{e}(\omega)\mathbf{e}^{H}(\omega)\frac{d\omega}{\pi}\}\mathbf{h}\\
-&=&\mathbf{h}^{T}\{\int_{0}^{\pi}\omega^{2}\mathbf{E}(\omega)\frac{d\omega}{\pi}\}\mathbf{h}\\
-&=&\mathbf{h}^{T}\mathbf{F}\mathbf{h}
-\end{eqnarray}
-where,
-\begin{equation}
-\mathbf{F}=\int_{0}^{\pi}\omega^{2}\mathbf{E}(\omega)\frac{d\omega}{\pi}
-\label{eq:F equation}
-\end{equation}
-and
-\begin{eqnarray}
-\mathbf{E}(\omega)&=&
-\begin{bmatrix}
-    e^{-j\omega 0}
-\\ e^{-j\omega 1} 
-\\ \vdots
-\\ e^{-j\omega M}   
-\end{bmatrix}
-\begin{bmatrix}
-    e^{j\omega 0}
-& e^{j\omega 1} 
-& \ldots
-& e^{j\omega M}   
-\end{bmatrix}\\
-&=&
-\begin{bmatrix}
-1 & e^{j\omega 1}& e^{j\omega 2} & \ldots & e^{j\omega M}\\
-e^{-j\omega 1} &  1& e^{j\omega 1} & \ldots & e^{j\omega (M-1)}\\
-e^{-j\omega 2} & e^{-j\omega 1}& 1 & \ldots & e^{j\omega (M-2)}\\
-\vdots & \vdots& \vdots & \ddots & \vdots\\
-e^{-j\omega M} & e^{-j\omega (M-1)}& e^{-j\omega (M-2)} & \ldots & 1\\
-\label{eq:E matrix}
-\end{bmatrix}
-\end{eqnarray}
-The element of the $\mathbf{E}$ matrix is $E_{k,l} =e^{j\omega (l-k)}$.
-So when $k=l$ the element at that place is 1 which means all the diagonal elements are 1.
-
-Now consider the integral
-\begin{equation*}
-\frac{1}{\pi}\int_{0}^{\pi}\omega^{2} e^{j\omega p}d\omega
-\end{equation*}\\
-
-For p=0,
-\begin{equation}
-\frac{1}{\pi}\int_{0}^{\pi}\omega^{2} e^{j\omega p}d\omega=\frac{1}{\pi}\int_{0}^{\pi}\omega^{2}d\omega=\frac{\omega^3}{3\pi}\biggr\vert_{0}^{\pi}=\frac{\pi^2}{3}.
-\label{eq:p=0}
-\end{equation}\\
-For $p>0$,
-\begin{eqnarray*}
-\frac{1}{\pi} \int_{0}^{\pi}\omega^{2} e^{j\omega p}d\omega &=& \frac{\omega^{2} e^{j\omega p}}{jp}\biggr\vert_{0}^{\pi}-\int_{0}^{\pi}\frac{2\omega e^{j\omega p}}{jp}d\omega \\
-&=& \frac{\omega^{2} e^{j\omega p}}{jp}\biggr\vert_{0}^{\pi}-\frac{2}{jp}\int_{0}^{\pi} \omega e^{j\omega p}d\omega \\
-&=&\frac{\omega^{2} e^{j\omega p}}{jp}\biggr\vert_{0}^{\pi}-\frac{2}{jp}\biggr\{ \frac{\omega e^{j\omega p}}{jp}\biggr\vert_{0}^{\pi}- \int_{0}^{\pi} \frac{ e^{j\omega p}}{jp}d\omega \biggr\}\\
-&=&\frac{\omega^{2} e^{j\omega p}}{jp}\biggr\vert_{0}^{\pi}-\frac{2}{(jp)^{2}}\biggr\{ \omega e^{j\omega p}- \frac{ e^{j\omega p}}{jp} \biggr\}\biggr\vert_{0}^{\pi}\\
-&=&\frac{\omega^{2} e^{j\omega p}}{jp}\biggr\vert_{0}^{\pi}+\frac{2}{(p)^{2}}\biggr\{ \omega e^{j\omega p}- \frac{ e^{j\omega p}}{jp} \biggr\}\biggr\vert_{0}^{\pi}\\
-&=& \frac{\pi^{2}(-1)^{p}}{jp}+\frac{2}{p^2}\biggr\{\pi e^{j\pi p} - \frac{e^{j \pi p}}{jp}\biggr\}-\biggr[0+\frac{2}{p^2}\biggr(\frac{-1}{jp}\biggr)\biggr]\\
-\end{eqnarray*}
-
-Hence for $p>0$,
-\begin{equation}
-\frac{1}{\pi}\int_{0}^{\pi}\omega^{2} e^{j\omega p}d\omega= \frac{\pi^{2}(-1)^{p}}{jp}+\frac{2\pi (-1)^{ p}}{p^2}-\frac{2(-1)^p}{jp^3}+\frac{2}{jp^3}
-\label{eq:p>0}
-\end{equation}
-From expressions \ref{eq:F equation}, \ref{eq:E matrix},\ref{eq:p=0} and \ref{eq:p>0}, we can evaluate the $\mathbf{F}$ matrix. The expression for the $\mathbf{F}$ matrix is given below.
-
- \begin{eqnarray}
- \label{Freq. Var. matrix}
- \mathbf{F_{k,l}} =  \begin{cases}
- \frac{\pi^2}{3}\,\,\, \text{if}\,\, k=l \\ 
- \frac{\pi^2{(-1)^{(l-k)}}}{j(l-k)} + \frac{2\pi{(-1)^{(l-k)}}}{(l-k)^2} + \frac{2\left(1 - {(-1)^{(l-k)}}\right)}{j{(l-k)^3}}\,\,\, \text{if}\,\, l \neq k
- \end{cases}
- \end{eqnarray}
 \end{appendix}

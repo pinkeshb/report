@@ -1,4 +1,4 @@
-\chapter{Experiments and results}
+\chapter{\label{ch:experimentandresult}Experiments and results}
 In this chapter a comparison of wavelets discussed in chapter  \ref{ch:wavelets} is analyzed with characteristic scenes in 2D(flatland) and 3D. Such a comparison can never be exhaustive due to the heterogeneous nature of input scenes. Therefor scenes with different kind of kernels has been chosen for comparison of performance of the wavelets. We first discuss kernels for which we have the exact analytical solution of the integral equation. Then we test and compare the wavelets the 2D scenes knows as flatland scenes. Flatland scenes are selected mainly to analysis and understanding different aspects of wavelet basis for radiosity. Results of using the different wavelets with 3D scenes are also discussed at the end this chapter. \\
 
 {\bf Ground truth comparison}\\
@@ -38,7 +38,7 @@ solution for above IE,
 \begin{equation} \label{eq:solutinoanalytical1}
 B(x)=
 \end{equation}
-The solution, $B(x)$, in above Equation \ref{eq:solutinoanalytical1} is calculate analytically using the method shown in Appendix \ref{apen:derivationdegenerate}. This ground truth solution is used to compare approximate solution of different wavelets. Approximate solution is calculate using projection method shown in Chapter \ref{ch:waveletprojection}. Figure \ref{fig:replacethis} shows the approximate solution and error function with different wavelets without thresholding(replacing negligible elements  with value 0) \underline {show equation of error and projected solution in chapter \ref{ch:waveletprojection} or else show it here}. As we can see that as the vanishing moment of wavelet increases the error decreases. \underline{ This is because higher order wavelets can approximate the kernel and solution more accurately. Figure \ref{fig:replacethis1}  shows that if we increase n error reduces. Above two result shows that to decrease error in  solution either n or order basis function has to be increased}
+The solution, $B(x)$, in above Equation \ref{eq:solutinoanalytical1} is calculate analytically using the method shown in Appendix \ref{apen:derivationdegenerate}. This ground truth solution is used to compare approximate solution of different wavelets. Approximate solution is calculate using projection method shown in Chapter \ref{ch:waveletprojection}. Figure \ref{fig:replacethis} shows the approximate solution and error function with different wavelets without thresholding(replacing negligible elements  with value 0) \underline {show equation of error and projected solution in chapter \ref{ch:waveletprojection} or else show it here}. As we can see that as the vanishing moment of wavelet increases the error decreases. \underline{ This is because higher order wavelets can approximate the kernel and solution more accurately. Figure \ref{fig:replacethis1}  shows that if we increase n error reduces. Above two result shows that to decrease error in  solution either n or order basis function has to be increased Aslo for QLMW error is zero for all n because $K(x,y)$ lies in space spanned by QLMW basis}
 
 
 
@@ -84,7 +84,7 @@ Note that $x \in X$ and $y \in Y$ in above kernels. $K(x_1,x_2) = 0$ for $x_1,x_
 \centering{}
 \captionsetup{justification=centering}
 \includegraphics[width=3in]{qlmwpsi2.png}
-\caption{\label{fig:replacethis4}flatland scene kernel in general}
+\caption{\label{fig:replacethis4}flatland scene kernel in general with zero and non zero regions}
 \end{figure}
 
 
@@ -98,10 +98,10 @@ and kernel  $K_2{x,y}$ for flatland2 is
 K_2(x,y)=\frac{\cos{\theta_x}\cos{\theta_y}}{2\,r_{x,y}} \quad\quad\quad\\
 =\frac{xy}{2(x^2+y^2)^{\frac{3}{2}}}\quad\quad\quad
 \end{eqnarray}
-We can change distance between two line segment in flatland1 to get different scene. As the distance decrease interaction between two segment increases. Figure \ref{fig:replacethis5} shows the kernel of flatland1 with $dist=0.25$. The kernel is non negative over entire domain. Also the interaction between two points is maximum when distance between them is less. Kernel is projected into space spanned by wavelet basis to get the sparse matrix of coefficient as shown in \ref{fig:replacethis6} \ref{fig:replacethis7} \ref{fig:replacethis8}\ref{fig:replacethis9} \ref{fig:replacethis10} \ref{fig:replacethis11}. \underline{also refer to CAS} \\
+We can change distance between two line segment in flatland1 to get different scene. As the distance decrease interaction between two segment increases. Figure \ref{fig:haarscalesparsef1} and \ref{fig:haarwaveletsparsef1} shows the kernel of flatland1 with $dist=0.25$. The kernel is non negative over entire domain. Also the interaction between two points is maximum when distance between them is less. Kernel is projected into space spanned by wavelet basis to get the sparse matrix of coefficient as shown in \ref{fig:replacethis6} \ref{fig:replacethis7} \ref{fig:replacethis8}\ref{fig:replacethis9} \ref{fig:replacethis10} \ref{fig:replacethis11}. \underline{also refer to CAS and thik about putting this images here instead of wavelet projection chapter} \\
 
 To plot the sparsity of matrix we plot sorted elements of matrix. Figure \ref{fig:sortedhaar}
-\underline{show all the distance and and f2 comment on increase in element value vs decrease in distance also show poly-poly and wavelet-poly copmparison for conclusion purpose }
+{\bf show all the distance and and f2 comment on increase in element value vs decrease in distance also show poly-poly and wavelet-poly copmparison for conclusion purpose }
 
 \begin{figure}[tbh]
 \centering{}
@@ -116,7 +116,7 @@ To plot the sparsity of matrix we plot sorted elements of matrix. Figure \ref{fi
 \caption{\label{fig:f10.25sortedhaar}flatland1 with $dist=0.25$ sorted elements}
 \end{figure}
 
-
+Figure \underline{show figure of error vs top n haar wavelet poly f10.25} the relaton between error in projection and top n element in terms of values while other elemets are replaced with zero value (thresholding) in radiosity matrix projected using haar wavelet and haar scalling function. Let the this process of replacing small values with zero be refered as {\em thresholding} As we can see, wavelet basis gives us more sparsity after thresholding error in pojection is less as compared to scaling function basis. Figure \underline{show for other wavelets} shows similar reults with LLMW and QLMW. Figure \underline{show result for all the scenes mension details in caption} shows result for different scenes which shows the similar results.
 % \begin{eqnarray} \label{eq:kernelflatland1}
 % 
 
@@ -142,7 +142,8 @@ To plot the sparsity of matrix we plot sorted elements of matrix. Figure \ref{fi
 
 
 
-
+\section{Three Dimensional Rasioity}
+In this section we show reults of projection method to solve 3D radiosity. Scene which we chose is shown in Figure \underline{show parallel  scene}. we divided each surface into grid of  \underline{n*n}  elements of equal size and assumed the radiosity function, over the domain of surface, to be piecewise constant over each element. Thus we have projected radiosity function into space spanned by dilates and translates of two dimensional Haar scaling function. We use projection method discussed in Chapter \ref{ch:waveletprojection}. To get system of linear equations which are solved to find the unknown projected function. Figure \underline{show result of haar wavelet in red color } shows the solution and images of the scene. Similar to Haar wavelet we can use LLMW and QLMW for projection methods. In case of LLMW we are dealing with space of piecewise linear functions and LLMW wavelet forms the basis for the same space. In case of QLMW, we are dealing with space of piecewise quadratic function for which QLMW wavelet serves as alternative basis. Use of this alternative basis give us advantage of sparse matrix for which matrix inversion is faster. Figure    \underline{show result of LLMW and QLMW wavelet in red color also show the spots of the function} shows the solution and images of the scene
 
 
 
