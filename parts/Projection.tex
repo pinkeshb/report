@@ -1,51 +1,46 @@
 
 
-\chapter{\label{ch:projection}Projection methods for radiosity problem}
-In chapter \ref{ch:problemformulatio} we saw that problem of radiosity was casted to integral equation but it is very difficult to solve the integral equation analytically due to geometry of scene. We can use projection methods to find approximate solution. We first start with projecting the unknown radiosity function and integrate(operate kernel) on the projected function. After that we cast radiosity problem with system of linear equations. \\
+\chapter{\label{ch:projection}Projection Method for Radiosity Problem}
+In chapter \ref{ch:problemformulatio} we saw that problem of radiosity was casted to integral equation but it is very difficult to solve the integral equation analytically due to geometry of scene. We can use projection methods to find approximate solution, Numerically. We first start with projecting the unknown radiosity function into finite dimension function space and integrate (operate kernel) on the projected radiosity function. After that we cast radiosity problem to system of linear equations which can be solved using computer. \\
 
 \section{Projecting Radiosity Function}
-We are working with linear operator (integral operator) defined on space of unknown function $B(x)$ we must first consider bases for this spaces. In general we will be dealing with functions of finite energy, i.e. functions
-in the linear vector space $L^2$ . There are many possible bases for
-this space. Consider some primal basis $\{N_i \}_{i{\bf belongs to}Z}$ . This set must contain infinitely many functions since $L^2$ is infinite dimensional.
-By definition, every function $B{\bf belongs to}L^2$ can be written as a lin-
-ear combination of the basis functions $B(x) = \sum _i b_i N_i(x)$ for
-some coefficients $b_i$ . In order to find the coefficients of a given
-function we need an inner product on $L^2$ . The inner product of
-two functions F and G is defined as $<F, G> = \int F(x) G(y) ds$.
-Throughout we will denote functions by capital letters. Their expansion coefficients with respect to a basis will be small letters
-with indices as subscripts. When denoting functions we will often
-drop the argument x (or y).
-Given a function B and a set of basis functions $N_i$ , one way
-of finding the coefficients of B with respect to this basis is by
-performing inner products against the dual basis functions $N{\bf tilde}_i$
-dual functions form a basis for the same space, and are defined
-through the property\\
-$<N_i,N{\bf tilde}_j>=\delta_{ij}$
-where $\delta_{ij}$ is the Kronecker Delta. Using the duals we can write
-the expansion of a function with respect to a basis as\\
-
-$B(x) = \sum_ib_iN_i(x)= \sum_i<B,N_i>N_i(x)$\\
-
-Now consider a linear operator defined on L 2 . One example is
-integration against a kernel function, which is a linear operator since integration is linear. In particular we consider the radiosity
-integral equation, which can be written as a linear operator\\
-
-$B=E+KB$\\
-
-where $KB(x) = \int K(x, y)B(y)dy$. Since K is a linear operator it
-is fully described by its action on our chosen basis. Intuitively we
-can write this as an infinite sized matrix. The columns of the matrix K are given by $KN_j$ . The coefficients of these columns with
-respect to our basis can be found by taking inner products with
-the dual functions. Thus the entries in the matrix representation
-of K are given by\\
-\begin{equation}\label{eq:kijcalc}
-K_{i,j}=<KN_j,N{\bf tilde}_i>=\int \int K(x,y)N_j(y)N{\bf tilde}_i(x)
+We are working with linear operator (integral operator) defined on space of unknown function $B(x)$.  We first consider basis for this space. Since scene is finite so as the domain of surfaces, we are dealing with functions of finite energy, i.e. functions
+in the linear vector space $L^2$ . There are many basis for
+this space. Consider some general basis $\{N_i \}_{i \in \mathbb{N}}$ for $L^2$ space. Set contains infinitely many basis functions because $L^2$ is infinite dimensional space.
+By definition, every function $B \in L^2$ can be written as a linear combination  $B(x) = \sum _i b_i N_i(x)$ of the basis functions for
+some coefficients $b_i$ . In order to find these coefficients for projection of a given
+function we define inner product on $L^2$ space. The inner product of
+two functions F and G is defined as $\langle F, G \rangle  = \int F(x) G(y) dx$.
+Given a function $B(x)$ and a set of basis functions function $N_i(x)$ , we can find the coefficients of $B(x)$ with respect to this basis is by
+calculating inner products with the dual basis functions $\tilde{N}_i(x)$. Dual functions can be used as basis for the same space, and are defined
+through the property
+\begin{equation}
+\langle N_i(x),\tilde{N}_j(x) \rangle =\delta_{ij}
 \end{equation}
-with this we can write radiosity integral equation as an infinite sized matrix equation\\
-
-$(I-K)B=E$\\
-
-{\bf Show countably finite thing \\ and also show the difference between space and basis for that space}\\
+where $\delta_{ij}$ is the Kronecker Delta. Using the dual basis we can expand a function  $B(x)$ with respect to a original basis as
+\begin{equation}
+B(x) = \sum_ib_iN_i(x)= \sum_i\langle B,N_i \rangle N_i(x)
+\end{equation}
+For many basis, basis and dual of the basis is same. Haar wavelet is one of the examples. 
+Now consider a linear operator (integral) defined on $L^2$ . In particular we consider the radiosity
+integral equation, which can be written as a linear operator operating on function $B(x)$\\
+\begin{equation}
+B(x)=E(x)+KB(x)
+\end{equation}
+where $KB(x) = \int K(x, y)B(y)dy$ is resulting function after operating on the function B(y). Since K (integration) is a linear operator it
+is described by its action on our chosen basis. In other words, we
+can write radiosity integral equation  kernel $K(x,y)$ as a matrix $\bf{K}$ of  infinite size. The coefficients of matrix $\bf{K}$  with
+respect to our basis can be found by taking inner products with the dual functions. Thus the entries in the matrix representation
+of $K(x,y)$ are given by\\
+\begin{equation}\label{eq:kijcalc}
+{\bf K}_{i,j}=\langle\, \langle K(x,y),N_j(y)\rangle,\tilde{N}_i(x) \,\rangle =\int \int K(x,y)N_j(y)\tilde{N}_i(x) dy\,dx
+\end{equation}
+with this matrix representation we write radiosity integral equation as a  matrix equation of infinite size\\
+\begin{equation}
+\bf{B=E+KB}
+\end{equation}
+where, {\bf B} and {\bf E} are column matrix consisting of projection coefficients of $B(x)$ and $E(x)$ respectively, calulated by taking inner product with dual basis of space. 
+\underline{ Show countably finite thing \\ and also show the difference between space and basis for that space}\\
 
 in next section we introduce wavelets and the wavelet basis
 
