@@ -16,9 +16,13 @@ If we restrict the parameters $a$ and $b$ to the discrete values as $a = a_0 ^-k
 Haar wavelet is simplest wavelet, which can be explained easily. Haar wavelet consist of single mother wavelet $\psi(x)$(see Figure \ref{fig:haarpsi}), single scaling function $phi(x)$(see Figure \ref{haarphi}), and dilates/translates of mother wavelet as shown in Equation \ref{eq:discreate}.  Thus Haar wavelet basis for $L^2$ space is list of functions shown below
 
 \begin{equation}\label{eq:haarbasis}
-(\phi^0(x),\psi_{n,k}(x)) n=..., -2, -1, 0, 1, 2,... \text{and} k=0,1,2,...
+(\phi^0(x),\psi_{n,k}(x)) n=..., -2, -1, 0, 1, 2,... \text{and} k=0,1,2,...,2^n-1
 \end{equation}
-If we select finite subset of the set in Equation \ref{eq:haarbasis}, we can form basis for space of piece-vice constant functions. Use of Haar wavelet as basis for space for approximating radiosity function is described in Chapter \ref{ch:waveletprojection} 
+If we select finite subset of the set in Equation \ref{eq:haarbasis}, we can form basis for space of piece-vice constant functions as discussed in Chapter \ref{ch:projection}. For example for function space discussed in Chapter \ref{ch:projection}, we have $m=1$ and $n=4$ to get space of piece-vice constant function over standard interval of size $\frac{1}{4}$. Thus we have 4 intervals and we need 4 basis function to spann this space. Haar basis for this space is shoen below
+\begin{equation}\label{eq:haarbasis_n4}
+(\phi^0(x),\psi_{n,k}(x)) n=0, 1 \text{and} k=0,1,2,...,2^n-1
+\end{equation}
+Use of Haar wavelet as basis for space for approximating radiosity function is described in Chapter \ref{ch:waveletprojection} 
 
 
 
@@ -96,10 +100,10 @@ Multi-wavelets are wavelets which have multiple mother wavelet  functions and sc
 \caption{Linear Legendre Multi-wavelet}
 \label{fig:llmwphipsi}
 \end{figure*}
-The two scale relationship of LLMW is $4 \times 4$~matrix
-\begin{equation}
-\left[ \begin{array}{c} x_1 \\ x_2 \end{array} \right] = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \times \left[ \begin{array}{c} y_1 \\ y_2 \end{array} \right]
-\end{equation}
+% The two scale relationship of LLMW is $4 \times 4$~matrix
+% \begin{equation}
+% \left[ \begin{array}{c} x_1 \\ x_2 \end{array} \right] = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \times \left[ \begin{array}{c} y_1 \\ y_2 \end{array} \right]
+% \end{equation}
 \underline{Find way to show this thing}
 % \[ \left( \begin{array}{ccc}
 % % a & b & \frac{1}{\sqrt{2}} \\
@@ -113,7 +117,7 @@ The two scale relationship of LLMW is $4 \times 4$~matrix
 %  \end{array} \right)\] 
 
 Along with linear Legendre multi-wavelets(LLMW) we are going to use quadratic Legendre multi-wavelets(QLMW). QLMW has three scaling and mother wavelet function, 
-\begin{equation}
+\begin{equation}\label{eq:qlmwphi0}
 \phi^0(x)=
 \left\{
     \begin{array}{ll}
@@ -123,7 +127,7 @@ Along with linear Legendre multi-wavelets(LLMW) we are going to use quadratic Le
 \right.
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{eq:qlmwphi1}
 \phi^1(x)=
 \left\{
     \begin{array}{ll}
@@ -133,7 +137,7 @@ Along with linear Legendre multi-wavelets(LLMW) we are going to use quadratic Le
 \right.
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{eq:qlmwphi2}
 \phi^2(x)=
 \left\{
     \begin{array}{ll}

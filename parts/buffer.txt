@@ -1,0 +1,3 @@
+We select that basis which, after projection, gives us many negligible coefficients which can be set to zero without any significant error in projection. Thus in projection method we start with selection of 
+
+
