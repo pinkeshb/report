@@ -1,55 +1,59 @@
 
 
-\chapter{\label{ch:projection}Projection Method for Radiosity Problem}
-In chapter \ref{ch:problemformulatio} we saw that problem of radiosity was casted to integral equation but it is very difficult to solve the integral equation analytically due to geometry of scene. We can use projection methods to find approximate solution, Numerically. We first start with projecting the unknown radiosity function into finite dimension function space and integrate (operate kernel) on the projected radiosity function. After that we cast radiosity problem to system of linear equations which can be solved using computer. \\
+\chapter{\label{ch:projection}Projection Methods for Radiosity Problem}
+In Chapter \ref{ch:problemformulation} we saw that problem of radiosity was casted to radiosity integral equation but it is very difficult to solve the integral equation analytically due to geometry of scene. We can therefore use projection methods to find approximate solution, Numerically. We first start with projecting the unknown radiosity function into finite dimensional function space and substitute projected radiosity function in radiosity integral equation. After that we cast radiosity problem to system of linear equations which can be solved using computer. At the end of this Chapter implementation of algorithm is discussed \\
 
-\section{Projecting Radiosity Function}
-We are working with linear operator (integral operator) defined on space of unknown function $B(x)$.  We first consider basis for this space. Since scene is finite so as the domain of surfaces, we are dealing with functions of finite energy, i.e. functions
-in the linear vector space $L^2$ . There are many basis for
-this space. Consider some general basis $\{N_i \}_{i \in \mathbb{N}}$ for $L^2$ space. Set contains infinitely many basis functions because $L^2$ is infinite dimensional space.
-By definition, every function $B \in L^2$ can be written as a linear combination  $B(x) = \sum _i b_i N_i(x)$ of the basis functions for
+\section{Projecting Radiosity Integral Equation into Finite Dimensional Space}
+We are working with linear operator (integral operator) defined for space of unknown function $B(x)$.  We first consider basis for this space. Since scene is finite so as the domain of surfaces, we are dealing with functions of finite energy, i.e. functions
+in the linear vector space, $L^2$ . There are many basis for
+this space. Consider some general basis $\{N_i \}_{i \in \mathbb{N}}$ for $L^2$ space. This set contains infinitely many basis functions because $L^2$ is infinite dimensional function space.
+
+By definition, every function $B(x) \in L^2$ can be written as a linear combination  $B(x) = \sum _i b_i N_i(x)$ of the basis functions for
 some coefficients $b_i$ . In order to find these coefficients for projection of a given
 function we define inner product on $L^2$ space. The inner product of
-two functions F and G is defined as $\langle F, G \rangle  = \int F(x) G(y) dx$.
-Given a function $B(x)$ and a set of orthogonal basis functions function $N_i(x)$ , we can find the coefficients of $B(x)$ with respect to this basis is by
-calculating inner products with the dual basis functions $\tilde{N}_i(x)$. Dual functions can be used as basis for the same space, and are defined
+two functions $F$ and $G$ is defined as $\langle F, G \rangle  = \int F(x) G(y) dx$.
+Given a function $B(x)$ and a set of orthogonal basis functions $\{N_i \}_{i \in \mathbb{N}}$ , we can find the coefficients of $B(x)$ with respect to this basis by
+calculating inner products with its dual basis $\{\tilde{N}_i \}_{i \in \mathbb{N}}$. Dual functions can be used as basis for the same space, and are defined
 through the property
 \begin{equation}
 \langle N_i(x),\tilde{N}_j(x) \rangle =\delta_{ij}
 \end{equation}
-where $\delta_{ij}$ is the Kronecker Delta. Using the dual basis we can expand a function  $B(x)$ with respect to a original basis as
+where $\delta_{ij}$ is the Kronecker Delta. Using the dual basis we can expand a function  $B(x)$ as linear combination of original basis as
 \begin{equation}\label{eq:radproj}
-B(x) = \sum_ib_iN_i(x)= \sum_i\langle B,N_i \rangle N_i(x)
+B(x) = \sum_ib_iN_i(x)= \sum_i\langle B(x),\tilde{N}_i(x) \rangle N_i(x)
 \end{equation}
-For many basis (orthonormal), basis and dual of the basis is same. Haar wavelet is one of the examples. 
+For orthonormal basis, basis and dual of the basis is same. Haar wavelet basis is one of the examples. 
 Now consider a linear operator (integral) defined on $L^2$ . In particular we consider the radiosity
 integral equation, which can be written as a linear operator operating on function $B(x)$\\
 \begin{equation}
 B(x)=E(x)+KB(x)
 \end{equation}
-where $KB(x) = \int K(x, y)B(y)dy$ is resulting function after operating on the function B(y). Since K (integration) is a linear operator it
-is described by its action on our chosen basis. In other words, we
-can write radiosity integral equation  kernel $K(x,y)$ as a matrix $\bf{K}$ of  infinite size. The coefficients of matrix $\bf{K}$  with
+where $KB(x) = \int K(x, y)B(y)dy$ is resulting function obtained after operating on the function B(y). Since K (integral operator) is a linear operator it
+is, described by its action on our chosen basis. In other words, we
+can write kernel $K(x,y)$, of radiosity integral equation, as a matrix $\bf{K}$ of infinite size. The coefficients of matrix $\bf{K}$  with
 respect to our basis can be found by taking inner products with the dual functions. Thus the entries in the matrix representation
 of $K(x,y)$ are given by\\
 \begin{equation}\label{eq:kijcalc}
-{\bf K}_{i,j}=\langle\, \langle K(x,y),N_j(y)\rangle,\tilde{N}_i(x) \,\rangle =\int \int K(x,y)N_j(y)\tilde{N}_i(x) dy\,dx
+{\bf K}_{i,j}=\langle\, \langle K(x,y),\tilde{N}_j(y)\rangle,\tilde{N}_i(x) \,\rangle =\int \int K(x,y)\tilde{N}_j(y)\tilde{N}_i(x) dy\,dx
 \end{equation}
-with this matrix representation we write radiosity integral equation as a  matrix equation of infinite size\\
+with this matrix representation, we write radiosity integral equation as a system of linear equation of infinite size\\
 \begin{equation}\label{eq:systemeq}
 \bf{B=E+KB}
 \end{equation}
-where, {\bf B} and {\bf E} are column matrix consisting of projection coefficients of $B(x)$ and $E(x)$ respectively, calculated by taking inner product with dual basis of space. Thus we have successfully discretized radiosity integral equation without any error in projection.
+where, {\bf B} and {\bf E} are column matrix consisting of projection coefficients of $B(x)$ and $E(x)$ respectively, calculated by taking inner product with dual basis. Thus we have successfully discretized radiosity integral equation without any error in projection. But the problem has countably infinite projection coefficients.
 
-\section{Finite sized System of linear equation}
-In previous section we have discretized the radiosity integral equation and we get alternative problem of solving system of linear equations. But we still can not solve it because it is problem is infinite size. To make the problem finite sized we select we select subspace of space in which problem is defined. To give an example, we can have subspace of function which are piecewise polynomial of order $m$. Basis for such space can be dilates and translates of function $\{1,x,x^2,...,x^m\}$ defined over every piece of domain of function space. In radiosity, we have finite domain of surfaces in scene, we can have basis space which is finite dimensional. consider radiosity function $B(x), \quad 0 \leq x < 1$. We can divide the domain into $n$ of size $\frac{1}{n}$ equal parts and assume that function is polynomial of upto order $m$ over this parts. One of the basis for this space is dilates and translates of function $\phi(x)=1, \quad \leq x < 1$. 
+\section{System of Linear Equation of Finite size }
+In previous section we have discretized the radiosity integral equation and we got alternative problem, problem of solving system of linear equations. But  still we can not solve it as it requires calculation    of countably infinite inner products. To make the problem finite sized we select subspace of space in which problem is defined. To give an example, we can have subspace of function which are piecewise polynomial of order $m$. Basis for such space can be dilates and translates of function $\{1,x,x^2,...,x^m\}$ defined over every piece of domain of function space. In radiosity, we have finite domain of surfaces in scene, we can have space which is finite dimensional. Consider radiosity function $B(x), \quad 0 \leq x < 1$. We can divide the domain into $n$ of size $\frac{1}{n}$ equal parts and assume that function is polynomial of upto order $m$ over this parts. One of the basis for this space is dilates and translates of function $\phi(x)=1, \quad 0 \leq x < 1$. 
 \begin{equation}\label{eq:scalediatrans}
-    \{\phi_{i,n}(x)=\phi(nx-i)\},\quad i=0,1,...,n-1
+    \{\phi_{\frac{1}{n},k}(x)=\sqrt{n}\phi(nx-k)\},\quad k=0,1,...,n-1
 \end{equation} 
-Thus we have basis for piecewise polynomial (constant) function i.e. $m=1$. The function $\phi(x)=1, \quad \leq x < 1$ is actually Haar wavelet scaling function. If we increase value of m = 2, we have space of piecewise linear functions, and basis for this space is generated by dilates and translates (see Equation \ref{eq:scalediatrans}) of $\{1,x\}$. Dilates and translates of LLMW scaling functions $\phi^0(x)=1, \quad \leq x < 1$ and $\phi^1(x)=\sqrt{3}(2x-1), \quad \leq x < 1$ forms orthogonalized orthonormal basis function for same space.  If we select $m= 3$ we have space of piecewise quadratic functions and basis for it is dilates and translates of QLMW scaling functions (see Equations \ref{eq:qlmwphi0}, \ref{eq:qlmwphi0}, \ref{eq:qlmwphi0}). Note that once we select particular function space, there are multiple basis for that space. Method of projection requires orthogonal basis. 
-\section{Algorithm}
-In this section we describe steps of projection methods.
-we first decide the finite dimension function space, a subset of function space of radiosity function ($L^2$). Since subspace is used for approximating the radiosity function, we select that function space which will have least error during  projection.  We then we select orthogonal basis for that space which will be used for getting projection coefficients $K_{i,j}$ and $E_{j}$ by taking inner product with basis as shown in Equation \ref{eq:kijcalc} \ref{eq:radproj}. Quadrature rules can be used to approximate inner products. Once we have the coefficients  we can solve system of linear equations shown in Equation \ref{eq:systemeq} using Jacobi iterative method. 
+Thus we have basis for piecewise polynomial (constant) function i.e. $m=0$. The function $\phi(x)=1, \quad 0 \leq x < 1$ is actually Haar wavelet scaling function. If we increase value of $m = 1$, we have space of piecewise linear functions, and basis for this space is generated by dilates and translates of function in $\{1,x\}$  (see Equation \ref{eq:scalediatrans}). Dilates and translates of LLMW (see Chapter \ref{ch:wavelets}) scaling functions $\phi^0(x)=1, \quad 0 \leq x < 1$ and $\phi^1(x)=\sqrt{3}(2x-1), \quad 0 \leq x < 1$ forms orthonormal basis function for same space.  If we select $m= 2$ we have space of piecewise quadratic functions and basis for it is dilates and translates of QLMW (see Chapter \ref{ch:wavelets}) scaling functions (see Equations \ref{eq:qlmwphi0}, \ref{eq:qlmwphi0}, \ref{eq:qlmwphi0}). Note that once we select particular function space, there are multiple basis for that space.
+
+\section{Algorithm Implementation}
+In this section we describe steps of projection methods. In projection methods we first decide the finite dimension function space, a subset of function space of radiosity function, $L^2$. Since subspace is used for approximating the radiosity function, we select that function space which will have least error after  projection.  We then select orthogonal basis for that space which will be used for getting projection coefficients $K_{i,j}$ and $E_{j}$ by taking inner product with basis as shown in Equations \ref{eq:kijcalc} and \ref{eq:radproj}. Quadrature rules, Gauss-Legendre quadrature rule, are used to approximately calculate inner products. Once we have the coefficients  we can solve system of linear equations shown in Equation \ref{eq:systemeq} using Jacobi iterative method. \\
+
+Also we see that the kernel of a scene is independent of location and intensity of light source. Hence we can project kernel for a scene and projection coefficients can be stored for later use. Now we can change location of light source and project the function $E(x) $ again to get new {\bf E} matrix, however we can use pre-calculated and/or stored kernel projection coefficients to find {\bf B}. Thus we can save time which we would be wasting to project kernel every time when the light source ($E(x)$) is changes. Thus we can have faster algorithm for dynamically changing light source. Also for scene with RGB colors, algorithm is used separately for three wavelengths. Finally we can combine the result for different wavelengths to produce color images of scene.
 
 
-In next Chapters, Chapter \ref{ch:wavelets} and \ref{ch:waveletprojection} we introduce wavelets and the wavelet basis as an alternative basis to basis discussed in this chapter. Advantages of wavelet basis is also discussed in next chapters.
+In next Chapters, Chapter \ref{ch:wavelets} and \ref{ch:waveletprojection}, we introduce wavelets and the wavelet basis as an alternative basis to basis discussed in this chapter. Advantages of wavelet basis and relation between n,m and accuracy of solution is also discussed in next chapters.
+    

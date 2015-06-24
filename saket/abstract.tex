@@ -1,7 +1,27 @@
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
 \doublespacing
-A new framework has been devised to design a class of time-frequency localization optimized, orthogonal wavelet filter banks. Three design problems are proposed to design the optimal orthogonal filter banks. Semidefinite programming (SDP) is used to solve the three design problems. An analysis low-pass filter is first designed and the impulse response of the other members of the filter bank is computed employing the quadrature conjugate symmetry (CQ). The time-frequency localization based optimality criterion is used to design the filter bank. The objective function taken in Design Problem 1 is the convex combination of the time variance and the frequency variance (CCTFV) of the impulse response of the analysis low-pass filter, which is minimized subjected to double shift orthogonality and vanishing moment constraints. In Design Problem 2, the time variance of the analysis filter is minimized after fixing the frequency variance to a constant value, whereas in Design Problem 3, the frequency variance is minimized after fixing the time variance to a constant value. A few design examples for three design problems are discussed in the report.
+One important goal of image synthesis research is to accelerate the
+process of obtaining realistic images using the radiosity method.
+Two important concepts recently introduced are the general frame-
+work of projection methods and the hierarchical radiosity method.
+Wavelet theory, which explores the space of hierarchical basis
+functions, offers an elegant framework that unites these two con-
+cepts and allows us to more formally understand the hierarchical
+radiosity method.
+Wavelet expansions of the radiosity kernel have negligible en-
+tries in regions where high frequency/fine detail information is
+not needed. A sparse system remains if these entries are ignored.
+This is similar to applying a lossy compression scheme to the form
+factor matrix. The sparseness of the system allows for asymptoti-
+cally faster radiosity algorithms by limiting the number of matrix
+terms that need to be computed. The application of these methods
+to 3D environments is described in [9]. Due to space limitations
+in that paper many of the subtleties of the construction could not
+be explored there. In this paper we discuss some of the mathemat-
+ical details of wavelet projections and investigate the application
+of these methods to the radiosity kernel of a flatland environment,
+where many aspect are easier to visualize. 
 %\\ \\
 %\noindent \textbf{Keywords:-} Filter banks (FB), Wavelets, Orthogonal filter banks, Semidefinite programming (SDP), Finite impulse response (FIR), Vanishing moments (VM), Double shift orthogonality (DSO), Perfect reconstruction (PR), Time-frequency localization.
 \end{abstract}  

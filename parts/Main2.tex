@@ -16,6 +16,8 @@
 	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	% Essential Packages
 	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\usepackage{afterpage}
+
     \usepackage{parcolumns}
 	\usepackage{setspace}
 	\usepackage{amsmath, amssymb, amsthm}
@@ -43,11 +45,13 @@
 
     %\usepackage{float}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage{showexpl}
 \usepackage{etex}
 \usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
 \usepackage{fancyhdr,caption}
+\usepackage[section]{placeins}
 \usepackage{xspace}
 %\usepackage{subfig}
 \usepackage{enumitem}
@@ -117,7 +121,7 @@
 
 	% Fancy Header Style Options
 	
-	\pagestyle{fancy}                       % Sets fancy header and footer
+	% \pagestyle{fancy}                       % Sets fancy header and footer
 	\fancyfoot{}                            % Delete current footer settings
 	\fancyhead[LE,RO]{\bfseries\thepage}    % Page number (boldface) in left on even
 	% pages and right on odd pages
@@ -187,34 +191,69 @@
 	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     \singlespace
     \thispagestyle{empty}  
-    \include{Dedication_parents}  % No page number
+     \include{Approval}
     \include{Declaration}
-    \include{Ack}    
-    \include{abstract}
-  
-	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	% Table of Contents, List of Figures, List of Tables
-	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
- 	\pagenumbering{roman}
-	\tableofcontents
-    %\addcontentsline{toc}{chapter}{List of Figures}
     
-	\listoffigures
-	\listoftables
+    \include{Dedication_parents}  % No page number
+    \include{Ack}    
 
-	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	% Chapters
-	 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\sqrt{}
+
+
+
+        \pagenumbering{roman}
+    \include{abstract}
+     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    % Table of Contents, List of Figures, List of Tables
+     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \newpage\thispagestyle{empty}\mbox{}
+    \newpage
+    \addcontentsline{toc}{chapter}{Contents}
+    \tableofcontents
+    % \newpage
+    % \addcontentsline{toc}{chapter}{List of Table}
+    % \listoftables
+    \newpage
+    \addcontentsline{toc}{chapter}{List of Figures}
+    \listoffigures
+
+     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    % Chapters
+     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \clearpage
+    \newpage\thispagestyle{empty}\mbox{}
+ %    \pagenumbering{roman}
+ %    % \setcounter{page}{-1}
+    
+ %    \include{abstract}
+  
+	%  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% % Table of Contents, List of Figures, List of Tables
+	%  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	% \tableofcontents
+ %    %\addcontentsline{toc}{chapter}{List of Figures}
+    
+	% \listoffigures
+
+	% % \listoftables
+
+	%  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	% % Chapters
+	%  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\sqrt{}
 
 	\pagenumbering{arabic}
     \setcounter{chapter}{0}
     \setcounter{page}{0}
+
+% \afterpage{\null\newpage}
+     \thispagestyle{empty}
+    
+
     \singlespace
     %\onehalfspace
     \DeclareGraphicsExtensions{.pdf,.png,.jpg,.bmp}
 \setstretch{1.5}
-
+ % \thispagestyle{empty}
 
     \include{Introduction}
     \include{Literature} 
@@ -224,10 +263,10 @@
     \include{WaveletProjection}
     \include{ExperimentResult}
     \include{Conclusion}
-
+\include{Appendix}
     \bibliographystyle{plain}
     \bibliography{main}
     \thispagestyle{empty}
-    \include{Appendix}
+    
 
 \end{document}
